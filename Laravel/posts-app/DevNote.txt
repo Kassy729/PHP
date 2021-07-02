@@ -1,0 +1,48 @@
+7/1 LARAVEL 수업
+
+
+Php artisan twinker
+
+$post = new Post();
+//데이터를 추가할경우 객체를 생성 하여 추가해준다 
+  추가하지 않고 할 경우 마지막에 만든 것이 수정이 된다
+
+
+$post = Post::find(1);
+//저장된 것중 id가 1값을 가져옴
+원하는 값을 바꿀수 있음
+
+
+php artisan make:migration alter_table_set_null_posts_table
+
+칼럼을 바꾸고싶을때는 
+Composer dibal
+
+게시글을 작성하고 blade문법을 통해 동적으로 바꾸어줌
+
+빈칸으로 입력했을시 서버로 막는 방법
+
+작성했을때 하나만 틀렸는데 다 지워지는데
+그전에 값을 저장해줌
+
+로그인 사용자라면 @auth. @endquth
+
+Layouts navigation 게시판으로 가는 버튼 생성
+
+Middleware 은 http 안에 있다
+
+Authenticate.php 인증이 안되어 있으면 로그인 페이지로 리다이렉트 한다
+Login 라우터는 require __dir__ 에 정의 되어 있다
+
+로그인 안되어 있을때 post/create 로 접속을 막아야하므로 
+auth미들웨어를 거치게 한다
+
+
+라우터의 이름을 지정해주면 바뀌어도 그대로 사용할수있다
+
+construct를 생성해 모든 라우터에 미들웨어 적용
+
+
+3번째 페이지 보고 나오면 다시 1번째 페이지로 이동됨
+
+currentPage가 현재 페이지 번호

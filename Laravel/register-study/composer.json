@@ -1,9 +1,0 @@
-{
-    "require": {
-        "laravel/ui": "^3.3",
-        "laravel/jetstream": "^2.3"
-    },
-    "require-dev": {
-        "laravel/breeze": "^1.3"
-    }
-}
