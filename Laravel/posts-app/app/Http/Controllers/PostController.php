@@ -13,7 +13,7 @@ class PostController extends Controller
 
     public function __construct()  //여기 지정된 모든 라우터들은 auth 미들웨어가 적용됨
     {
-        $this->middleware(['auth'])->except(['index', 'show']); 
+        $this->middleware(['auth'])->except(['home', 'index', 'show']); 
     }
 
     public function show(Request $request, $id){  //currentPage 정보를 
