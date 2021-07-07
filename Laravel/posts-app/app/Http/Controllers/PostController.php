@@ -20,7 +20,7 @@ class PostController extends Controller
     }
 
     public function show(Request $request, $id){  //currentPage 정보를 
-        $page = $request->page;
+        $page = $request->page;  //쿼리스트링에서 준건 request로 받아야한다
         $post = Post::find($id);
         return view('posts.show', compact('post', 'page'));  //$id를 $post에 담아서 compact로 보내줌, 페이지 정보도 같이 보내주어야함
     }
@@ -83,11 +83,11 @@ class PostController extends Controller
 
     
 
-    public function edit(Post $post){  //라라벨 능력으로 Post로 바로 값을 가져와서 find 하지 않아도 된다
+    public function edit(Request $request, Post $post){  //라라벨 능력으로 Post로 바로 값을 가져와서 find 하지 않아도 된다
         // $post = Post::find($id);
         // $post = Post::where('id', $id)->first();
         //수정 폼 생성
-        return view('posts.edit')->with('post', $post);
+        return view('posts.edit', ['post'=>$post, 'page'=>$request->page]);
     }
 
     public function update(Request $request, $id){
@@ -99,10 +99,19 @@ class PostController extends Controller
 
         $post = Post::find($id);  
         //이미지 파일 수정. 파일시스템에서    
-
         //게시글을 데이터베이스에서 수정
         $post->title=$request->title;
         $post->content=$request->content;
+
+        //Authorization 즉 수정 권한이 있는지 검사
+        //즉, 로그인한 사용자와 게시글의 작성자가 같은지 체크
+        // if(auth()->user()->id != $post->user_id){
+        //     abort(403);
+        // }
+
+        if($request->user()->cannot('update', $post)){
+            abort(403);
+        }
 
         if($request->file('imageFile')){  //nullException 방지
             $imagePath = 'public/images/'.$post->image;
@@ -113,8 +122,36 @@ class PostController extends Controller
 
         
 
-        return redirect()->route('post.show', ['id'=>$id]);
+        return redirect()->route('post.show', ['id'=>$id, 'page'=>$request->page]);  //페이지 정보를 같이 줘야함 페이지 정보를 계속 물고 가야함
     }
+
+
+    public function destroy(Request $request, $id){  //page정보도 같이 넘겨주어서 삭제후 그 페이지를 유지한다
+        //파일 시스템에서 이미지 파일 삭제
+        //게시글을 데이터베이스에서 삭제
+        $post = Post::findOrFail($id);  //찾고 없으면 에러
+
+
+        //Authorization 즉 수정 권한이 있는지 검사
+        //즉, 로그인한 사용자와 게시글의 작성자가 같은지 체크
+        // if(auth()->user()->id != $post->user_id){
+        //     abort(403);
+        // }
+
+        if($request->user()->cannot('delete', $post)){
+            abort(403);
+        }
+
+        $page = $request->page;
+        if($post->image){
+            $imagePath = 'public/images/'.$post->image;
+            Storage::delete($imagePath); 
+        }
+        $post->delete();
+
+        return redirect()->route('posts.index', ['page'=>$page]);
+    }
+
 
 
     protected function uploadPostImage($request){
@@ -137,10 +174,7 @@ class PostController extends Controller
     
 
 
-    public function destroy($id){
-        //파일 시스템에서 이미지 파일 삭제
-        //게시글을 데이터베이스에서 삭제
-    }
+    
 
 }
 

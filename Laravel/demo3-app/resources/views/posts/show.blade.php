@@ -13,59 +13,55 @@
 <body>
     <div class="container">
         <div class="m-5">
-            <a href="{{ route('posts.index', ['page'=>$page]) }}">목록보기</a> {{-- page정보를 넘겨 주어서 목록에서 페이지를 유지한다, 라우터 설정할땐 이름으로 --}}
+            <a href="{{ route('posts.index', ['page'=>$page]) }}">목록보기</a>
         </div>
 
         <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" readonly name = "title" class="form-control" id="title" value="{{ $post->title }}">{{-- input의 name값은 지정한 값으로 해야함 --}} 
+            <label for="title">제목</label>
+            <input type="text" readonly name="title" class="form-control" id="title" value="{{ $post->title }}">
+        </div>
 
-        </div>
         <div class="form-group">
-            <label for="content">Content</label>
-            <textarea class="form-control" 
-                id="content" name = "content" readonly ">{{ $post->content }}</textarea>
+            <label for="content">내용</label>
+            <textarea class="form-control" name="content" id="content" readonly>{{ $post->content }}</textarea>
         </div>
+
         <div class="form-group">
-            <label for="imageFile">Post Image</label>
-            <div class="w-10" style="height:50%">
-                {{-- <img class="img-thumbnail" width="20%" src="/storage/images/{{ $post->image ?? 'default-image.jpeg'}}"/>  너무 길기 때문에 함수를 만들어서 쉽게 하자 --}}
-                <img class="img-thumbnail" width="50%" src="{{ $post->imagePath()}}"/>
+            <label for="imageFile">이미지</label>
+            <div class="w-10" style="height: 50%">
+                <img class="img-thumbnail" width="50%" src="{{ $post->imagePath() }}"/>
             </div>
         </div>
+
         <div class="form-group">
-            <label for="">작성일</label>
+            <label for="title">작성일</label>
             <input type="text" readonly class="form-control" value="{{ $post->created_at }}">
         </div>
+
         <div class="form-group">
-            <label for="">수정일</label>
+            <label for="title">수정일</label>
             <input type="text" readonly class="form-control" value="{{ $post->updated_at }}">
         </div>
+
         <div class="form-group">
-            <label for="">작성자</label>
+            <label for="title">작성자</label>
             <input type="text" readonly class="form-control" value="{{ $post->user_id }}">
         </div>
 
-        {{-- <div class="m-5">
-            <a href="{{ route('posts.index', ['page'=>$page]) }}">목록보기</a> {{-- page정보를 넘겨 주어서 목록에서 페이지를 유지한다 --}}
-
         @auth
-            {{-- @if (auth()->user()->id == $post->user_id) --}}
             @can('update', $post)
                 <div class="flex">
                     <div>
-                        <button class="btn btn-warning" onclick="location.href='{{ route('post.edit', ['post'=>$post->id, 'page'=>$page]) }}'">수정</button>
+                        <button class="btn btn-warning" onclick="location.href='{{ route('posts.edit', ['post'=>$post->id, 'page'=>$page]) }}'">수정</button>  {{-- ???? --}}
                     </div>
-                    <form action="{{ route( 'post.delete', ['id'=>$post->id, 'page'=>$page] )}}" method="post">
+                    <form action="{{ route('post.delete', ['id'=>$post->id, 'page'=>$page]) }}" method="POST">
                         @csrf
                         @method("delete")
-                        <button type="submit" class="btn btn-danger">삭제</button> 
+                        <button type="submit" class="btn btn-danger">삭제</button>
                     </form>
                 </div>
             @endcan
-            {{-- @endif --}}
         @endauth
     </div>
-</body> 
-
+</body>
 </html>
