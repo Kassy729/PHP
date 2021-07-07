@@ -25,6 +25,15 @@
             <textarea class="form-control" 
                 id="content" name = "content" readonly ">{{ $post->content }}</textarea>
         </div>
+
+        <div class="form-group">
+            <label for="imageFile">Post Image</label>
+            <div class="w-10" style="height: 20%">
+                {{-- <img class="img-thumbnail" width="20%" src="/storage/images/{{ $post->image ?? 'default-image.jpeg'}}"/> --}}
+                <img class="img-thumbnail" width="20%" src="{{ $post->imagePath() }}"/>
+            </div>
+        </div>
+
         <div class="form-group">
             <label for="">작성일</label>
             <input type="text" readonly class="form-control" value="{{ $post->created_at }}">
@@ -40,6 +49,12 @@
     </div>
 
     <a href="{{ route('edit', ['id'=>$post->id]) }}">수정</a>
-    <a href="{{ route('delete', ['id'=>$post->id]) }}">삭제</a>
+    
+    {{-- <a href="{{ route('delete', ['id'=>$post->id]) }}">삭제</a> --}}
+    <form action="{{ route('delete', ['id'=>$post->id]) }}" method="post">
+        @csrf
+        @method("DELETE")
+        <input type="submit" value="삭제">
+    </form>
 </body>
 </html>

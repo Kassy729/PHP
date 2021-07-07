@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
 
 class PostsController extends Controller
 {
@@ -54,6 +56,22 @@ class PostsController extends Controller
         $post->title=$title;
         $post->content=$content;
         $post->user_id=Auth::user()->id;
+
+        if($request->file('imageFile')){ 
+            $name = $request->file('imageFile')->getClientOriginalName();
+        
+            $extension = $request->file('imageFile')->extension();
+          
+            $nameWithoutExtension = Str::of($name)->basename('.'.$extension);
+
+            $fileName = $nameWithoutExtension . '_' . time() . '.' . $extension;  
+
+            $request->file('imageFile')->storeAs('public/images', $fileName);  
+            //public/images 라는 폴더에 imageFile을 저장하라, 없으면 폴더 생성
+
+            $post->image = $fileName;
+        }
+
         $post->save();
 
         return redirect('/posts/index');

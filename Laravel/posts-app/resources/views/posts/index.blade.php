@@ -28,10 +28,10 @@
                         </a> 
                     </span>  {{-- 컨트롤러로 부터 받은 $posts값을 속성을 이용해 빼서 사용 --}}
                     
-                    <div>
+                    {{-- <div>
                         내용 : {{ $post->content }}
                     </div>
-                    <span>작성일 : {{ $post->created_at }}</span>
+                    <span>작성일 : {{ $post->created_at->diffForHumans() }}</span> --}}
                     <hr>
                 </li>
             @endforeach

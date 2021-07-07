@@ -11,29 +11,36 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 <body>
-    <form action="{{ route('update', ['id'=>$post->id]) }}">
-        {{-- <@method('PUT')> --}}
+    <form action="{{ route('update', ['id'=>$post->id]) }}" method="POST">
+        @csrf
+        @method('PUT')
         <div class="container">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" name = "title" class="form-control" id="title" value="{{ $post->title }}">{{-- input의 name값은 지정한 값으로 해야함 --}} {{-- 여기서는 $post를 어떻게 사용하는걸까??? --}}
+                @error('title')  {{-- title에 에러가 발생했다면 메세지를 띠우자 --}}
+                            <div>{{ $message }}</div>  {{-- $message는 어디서 왔는가?? --}}
+                @enderror
             </div>
             <div class="form-group">
                 <label for="content">Content</label>
                 <textarea class="form-control" 
                     id="content" name = "content" ">{{ $post->content }}</textarea>
+                    @error('content')  {{-- content에 에러가 발생했다면 메세지를 띠우자 --}}
+                            <div>{{ $message }}</div>
+                    @enderror
             </div>
             <div class="form-group">
-                <label for="">작성일</label>
-                <input type="text" class="form-control" value="{{ $post->created_at }}">
+                {{-- <label for="imageFile">Post Image</label>
+                <div class="w-10" style="height:50%"> --}}
+                <img class="img-thumbnail" width="50%" src="{{ $post->imagePath()}}"/>
             </div>
             <div class="form-group">
-                <label for="">수정일</label>
-                <input type="text" class="form-control" value="{{ $post->updated_at }}">
-            </div>
-            <div class="form-group">
-                <label for="">작성자</label>
-                <input type="text" class="form-control" value="{{ $post->user_id }}">
+                <label for="file">File</label>
+                <input type="file" id="file" name="imageFile">
+                    @error('imageFile')  
+                        <div>{{ $message }}</div>
+                    @enderror
             </div>
         </div>
         <input type="submit" value="수정하기">

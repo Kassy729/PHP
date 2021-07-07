@@ -46,3 +46,7 @@ construct를 생성해 모든 라우터에 미들웨어 적용
 3번째 페이지 보고 나오면 다시 1번째 페이지로 이동됨
 
 currentPage가 현재 페이지 번호
+
+ctrl + shift + r  : 자동 변수 생성
+
+ctrl + D : 변수 선택

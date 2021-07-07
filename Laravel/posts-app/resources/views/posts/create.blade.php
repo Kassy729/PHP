@@ -12,11 +12,12 @@
 </head>
 <body>
     <div class="container">
-        <form action="/posts/store" method="post">    
+        <form action="/posts/store" method="post" enctype="multipart/form-data">    
             @csrf
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" name = "title" class="form-control" id="title" value="{{ old('title') }}">                  {{-- input의 name값은 지정한 값으로 해야함 --}}
+                {{-- old('title') 이부분은 vaildate 에서 처리해줌--}}
 
                 @error('title')  {{-- title에 에러가 발생했다면 메세지를 띠우자 --}}
                         <div>{{ $message }}</div>  {{-- $message는 어디서 왔는가?? --}}
@@ -28,6 +29,14 @@
                     id="content" name = "content" >{{ old('content') }}</textarea>
 
                     @error('content')  {{-- content에 에러가 발생했다면 메세지를 띠우자 --}}
+                        <div>{{ $message }}</div>
+                    @enderror
+            </div>
+            <div class="form-group">
+                <label for="file">File</label>
+                <input type="file" id="file" name="imageFile">
+
+                    @error('imageFile')  {{-- content에 에러가 발생했다면 메세지를 띠우자 --}}
                         <div>{{ $message }}</div>
                     @enderror
             </div>

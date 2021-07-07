@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/dashboard', function () {
@@ -35,8 +35,8 @@ Route::get('posts/show/{id}', [PostsController::class,('show')])->name('show');
 
 Route::get('posts/edit/{id}', [PostsController::class,('edit')])->name('edit');
 
-Route::get('posts/update{id}', [PostsController::class,('update')])->name('update');
+Route::put('posts/update{id}', [PostsController::class,('update')])->name('update');
 
-Route::get('posts/delete{id}', [PostsController::class,('destroy')])->name('delete');
+Route::delete('posts/delete{id}', [PostsController::class,('destroy')])->name('delete');
 
 require __DIR__.'/auth.php';
