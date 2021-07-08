@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
+use League\CommonMark\Inline\Element\Strong;
 
 class PostController extends Controller
 {
@@ -65,9 +65,9 @@ class PostController extends Controller
         $post->title=$request->title;
         $post->content=$request->content;
 
-        if($request->user()->cannot('update', $post)){
-            abort(403);
-        }
+        // if($request->user()->cannot('update', $post)){
+        //     abort(403);
+        // }
 
         if($request->file('imageFile')){
             $imagePath = 'public/images/'.$post->image;
@@ -80,7 +80,20 @@ class PostController extends Controller
     }
 
     public function destroy(Request $request, $id){
+        $post = Post::findOrFail($id);
 
+        // if($request->user()->cannot('delete', $post)){
+        //     abort(403);
+        // }
+        
+        $page = $request->page;
+        if($post->image){
+            $imagePath = 'public/images/'.$post->image;
+            Storage::delete($imagePath);
+        }
+        $post->delete();
+
+        return redirect()->route('posts.index', ['page'=>$page]);
     }
 
 

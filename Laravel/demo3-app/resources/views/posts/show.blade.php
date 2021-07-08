@@ -54,7 +54,7 @@
                     <div>
                         <button class="btn btn-warning" onclick="location.href='{{ route('posts.edit', ['post'=>$post->id, 'page'=>$page]) }}'">수정</button>  {{-- ???? --}}
                     </div>
-                    <form action="{{ route('post.delete', ['id'=>$post->id, 'page'=>$page]) }}" method="POST">
+                    <form action="{{ route('posts.delete', ['id'=>$post->id, 'page'=>$page]) }}" method="POST">
                         @csrf
                         @method("delete")
                         <button type="submit" class="btn btn-danger">삭제</button>
