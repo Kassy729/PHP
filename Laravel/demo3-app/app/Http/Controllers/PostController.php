@@ -11,6 +11,11 @@ use League\CommonMark\Inline\Element\Strong;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth'])->except(['home', 'index', 'show']);
+    }
+
     public function create(){
         return view('posts/create');
     }
@@ -42,6 +47,14 @@ class PostController extends Controller
     public function index(){
         $posts = Post::latest()->paginate(4);  //Post클래스 정보를 $posts변수에 담는다
         return view('posts.index', compact('posts'));
+    }
+
+    public function my_post(){
+        $id = Auth::user()->id;
+
+        $posts = Post::where('user_id', $id)-> latest() -> paginate(5);
+
+        return view('posts.my_post', compact('posts'));
     }
 
     public function show(Request $request, $id){

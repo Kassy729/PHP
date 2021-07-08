@@ -20,6 +20,10 @@
                         {{ __('Posts') }}
                     </x-nav-link>
                     {{-- post로 이동하는 버튼 생성 --}}
+
+                    <x-nav-link :href="route('posts.my_index')" :active="request()->routeIs('posts.my_index')">
+                        {{ __('MyPosts') }}
+                    </x-nav-link>
                 </div>
             </div>
 

@@ -14,6 +14,8 @@
     <div class="container">
         <div class="m-5">
             <a href="{{ route('posts.index', ['page'=>$page]) }}">목록보기</a> {{-- page정보를 넘겨 주어서 목록에서 페이지를 유지한다, 라우터 설정할땐 이름으로 --}}
+            <a href="{{ route('posts.my_index', ['page'=>$page]) }}">내목록보기</a> {{-- page정보를 넘겨 주어서 목록에서 페이지를 유지한다, 라우터 설정할땐 이름으로 --}}
+
         </div>
 
         <div class="form-group">
@@ -23,8 +25,8 @@
         </div>
         <div class="form-group">
             <label for="content">Content</label>
-            <textarea class="form-control" 
-                id="content" name = "content" readonly ">{{ $post->content }}</textarea>
+            <div class="form-control" 
+                id="content" name = "content" readonly ">{!! $post->content !!}</div>
         </div>
         <div class="form-group">
             <label for="imageFile">Post Image</label>
@@ -43,7 +45,8 @@
         </div>
         <div class="form-group">
             <label for="">작성자</label>
-            <input type="text" readonly class="form-control" value="{{ $post->user_id }}">
+            <input type="text" readonly class="form-control" value="{{ $post->user->name }}">  
+                                                {{-- user테이블과 조인해서 user테이블의 name을 사용 --}}
         </div>
 
         {{-- <div class="m-5">

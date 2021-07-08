@@ -32,6 +32,8 @@ Route::post('posts/store', [PostController::class, 'store'])->name('posts.store'
 
 Route::get('/posts/index', [PostController::class, 'index'])->name('posts.index');
 
+Route::get('/posts/my_index', [PostController::class, 'my_index'])->name('posts.my_index');
+
 Route::get('/posts/show/{id}', [PostController::class, 'show'])->name('post.show');  //url에 포함된 id를 {id}로 받겠다?????? {id}의 의미??
 
 
@@ -39,3 +41,4 @@ Route::get('/posts/{post}', [PostController::class, 'edit'])->name('post.edit');
 Route::put('/posts/{id}', [PostController::class, 'update'])->name('post.update');
 
 Route::delete('posts/{id}', [PostController::class, 'destroy'])->name('post.delete');
+

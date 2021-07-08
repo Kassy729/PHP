@@ -45,7 +45,7 @@
 
         <div class="form-group">
             <label for="title">작성자</label>
-            <input type="text" readonly class="form-control" value="{{ $post->user_id }}">
+            <input type="text" readonly class="form-control" value="{{ $post->user->name }}">
         </div>
 
         @auth

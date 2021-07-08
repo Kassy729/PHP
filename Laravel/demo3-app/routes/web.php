@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/dashboard', function () {
@@ -30,6 +30,8 @@ Route::get('posts/create', [PostController::class, 'create'])->name('posts/creat
 Route::post('posts/store', [PostController::class, 'store'])->name('posts.store');
 
 Route::get('posts/index', [PostController::class, 'index'])->name('posts.index');
+
+Route::get('posts/my_post', [PostController::class, 'my_post'])->name('posts.my_post');
 
 Route::get('posts/show/{id}', [PostController::class, 'show'])->name('posts.show');
 

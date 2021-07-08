@@ -152,6 +152,17 @@ class PostController extends Controller
         return redirect()->route('posts.index', ['page'=>$page]);
     }
 
+    public function my_index(){
+        // $posts = auth()->user()->posts->pageinate(); auth()는 전역 함수
+
+        // return view('posts.index', compact('posts'));
+        $id = Auth::user()->id;
+
+        $posts = Post::where('user_id', $id)-> latest() -> paginate(5);
+
+        return view('posts.my_index', compact('posts'));
+    }
+
 
 
     protected function uploadPostImage($request){
