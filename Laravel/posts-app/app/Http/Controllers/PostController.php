@@ -22,6 +22,9 @@ class PostController extends Controller
     public function show(Request $request, $id){  //currentPage 정보를 
         $page = $request->page;  //쿼리스트링에서 준건 request로 받아야한다
         $post = Post::find($id);
+        $post->count++;  //조회수 증가 시킴
+        $post->save();  //DB에 반영
+
         return view('posts.show', compact('post', 'page'));  //$id를 $post에 담아서 compact로 보내줌, 페이지 정보도 같이 보내주어야함
     }
 

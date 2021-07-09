@@ -26,12 +26,15 @@
                             {{-- 상세보기하기 위해 post.show링크 달기, 페이지 정보 도 넘겨주기 --}}
                         제목 : {{ $post->title }}
                         </a> 
+
                     </span>  {{-- 컨트롤러로 부터 받은 $posts값을 속성을 이용해 빼서 사용 --}}
                     
                     {{-- <div>
                         내용 : {{ $post->content }}
-                    </div>
-                    <span>작성일 : {{ $post->created_at->diffForHumans() }}</span> --}}
+                    </div> --}}
+                    <span>작성일 : {{ $post->created_at->diffForHumans() }}
+                        {{ $post->count }} {{ $post->count > 0 ? Str::plural('view', $post->count) : 'view' }}
+                    </span> 
                     <hr>
                 </li>
             @endforeach
