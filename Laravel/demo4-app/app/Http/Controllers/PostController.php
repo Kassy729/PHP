@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
@@ -50,7 +51,52 @@ class PostController extends Controller
     public function show(Request $request, $id){
         $page = $request->page;
         $post = Post::find($id);
+        $post->count++;
+        $post->save();
+
         return view('posts.show', compact('post','page'));
+    }
+
+    public function edit(Request $request, Post $post){
+        return view('posts.edit', ['post'=>$post, 'page'=>$request->page]);
+    }
+
+    public function update(Request $request, $id){
+        $request->validate([  //빈칸일 경우 제출되지 않도록 막아줌
+            'title' => 'required|min:3',  //최소 3글자 이상
+            'content' => 'required',
+            'imageFile' => 'image|max:2000'
+        ]);
+
+        $post = Post::find($id);
+
+        $post->title=$request->title;
+        $post->content=$request->content;
+
+        // if($request->user()->cannot('update', $post)){
+        //     abort(403);
+        // }
+
+        if($request->file('imageFile')){
+            $imagePath = 'public/images/'.$post->image;
+            Storage::delete($imagePath);
+            $post->image = $this->uploadPostImage($request);
+        }
+        $post->save();
+
+        return redirect()->route('posts.show', ['id'=>$id, 'page'=>$request->page]);
+    }
+
+    public function destroy(Request $request, $id){
+        $post = Post::findOrFail($id);
+
+        $page = $request->page;
+        if($post->image){
+            $imagePath = 'public/images/'.$post->image;
+            Storage::delete($imagePath);
+        }
+        $post->delete();
+        return redirect()->route('posts.index', ['page'=>$page]);
     }
 
     protected function uploadPostImage($request){

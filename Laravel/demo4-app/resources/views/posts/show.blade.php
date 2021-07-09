@@ -43,11 +43,24 @@
         </div>
         <div class="form-group">
             <label for="">작성자</label>
-            <input type="text" readonly class="form-control" value="{{ $post->user_id }}">  
+            <input type="text" readonly class="form-control" value="{{ $post->user->name }}">  
                                                 {{-- user테이블과 조인해서 user테이블의 name을 사용 --}}
         </div>
 
-        
+        @auth
+            @can('update', $post)
+                <div class="flex">
+                    <div>
+                        <button class="btn btn-warning" onclick="location.href='{{ route('posts.edit', ['post'=>$post->id, 'page'=>$page]) }}'">수정</button>
+                    </div>
+                </div>
+                <form action="{{ route('posts.delete', ['id'=>$post->id, 'page'=>$page]) }}" method="post">
+                    @csrf
+                    @method("delete")
+                    <button type="submit" class="btn btn-danger">삭제</button>
+                </form>
+            @endcan
+        @endauth
     </div>
 </body>
 </html>

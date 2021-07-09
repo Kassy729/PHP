@@ -15,5 +15,8 @@ class Post extends Model
         return $path.$imageFile;
     }
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
     
 }
