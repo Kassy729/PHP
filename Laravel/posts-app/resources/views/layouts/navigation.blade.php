@@ -24,6 +24,22 @@
                     <x-nav-link :href="route('posts.my_index')" :active="request()->routeIs('posts.my_index')">
                         {{ __('MyPosts') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('posts.my_index')" :active="request()->routeIs('posts.my_index')">
+                        {{ __('MyPosts') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('posts.my_index')" :active="request()->routeIs('posts.my_index')">
+                        {{ __('MyPosts') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('posts.my_index')" :active="request()->routeIs('posts.my_index')">
+                        {{ __('MyPosts') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('posts.my_index')" :active="request()->routeIs('posts.my_index')">
+                        {{ __('MyPosts') }}
+                    </x-nav-link>
                 </div>
             </div>
 

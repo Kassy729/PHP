@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
+                    이 컴퓨터는 해킹당했습니다!
                 </div>
                 <div>
                     <a href="/" class="btn btn-primary">홈으로</a>

@@ -47,4 +47,9 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany(Post::class);  //외래키를 적어야 하지만 관례를 따라서 생략 가능
     }
+
+    public function viewed_posts(){
+        // return $this->belongsToMany(Post::class);
+        return $this->belongsToMany(Post::class, 'post_user', 'user_id', 'post_id', 'id', 'id', 'posts');  //users는 본인이라 사용하지않음
+    }
 }
