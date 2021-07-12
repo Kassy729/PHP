@@ -20,7 +20,7 @@ class CreatePostUserTable extends Migration
             $table->foreignId('post_id')
                         ->constrained()->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();
-            $table->unique(['user_id', 'post_id']);  //???
+            $table->unique(['user_id', 'post_id']);  //중복 되면 안되므로 유니크 설정
         });
     }
 

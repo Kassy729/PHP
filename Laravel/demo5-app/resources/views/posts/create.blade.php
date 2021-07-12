@@ -13,21 +13,25 @@
 </head>
 <body>
     <div class="container">
-        <form action="posts/store" method="post" enctype="multipart/form-data">
+        <form action="/posts/store" method="post" enctype="multipart/form-data">    
             @csrf
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}">
-                @error('title')
-                    <div>{{ $message }}</div>
+                <input type="text" name = "title" class="form-control" id="title" value="{{ old('title') }}">                  {{-- input의 name값은 지정한 값으로 해야함 --}}
+                {{-- old('title') 이부분은 vaildate 에서 처리해줌--}}
+
+                @error('title')  {{-- title에 에러가 발생했다면 메세지를 띠우자 --}}
+                        <div>{{ $message }}</div>  {{-- $message는 어디서 왔는가?? --}}
                 @enderror
             </div>
             <div class="form-group">
                 <label for="content">Content</label>
-                <textarea class="form-control" name="content" id="content">{{ old('content') }}</textarea>
-                @error('content')
-                    <div>{{ $message }}</div>
-                @enderror
+                <textarea class="form-control" 
+                    id="content" name = "content" >{{ old('content') }}</textarea>
+
+                    @error('content')  {{-- content에 에러가 발생했다면 메세지를 띠우자 --}}
+                        <div>{{ $message }}</div>
+                    @enderror
             </div>
             <div class="form-group">
                 <label for="file">File</label>
@@ -41,5 +45,16 @@
             <a href="./index" class="btn btn-primary">게시글</a>  
             <a href="/" class="btn btn-primary">홈으로</a>  
         </form>
+    </div>
+        <script>
+            ClassicEditor
+                    .create( document.querySelector( '#content' ) )
+                    .then( editor => {
+                            console.log( editor );
+                    } )
+                    .catch( error => {
+                            console.error( error );
+                    } );
+        </script>
 </body>
 </html>

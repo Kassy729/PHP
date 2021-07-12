@@ -51,8 +51,12 @@ class PostController extends Controller
     public function show(Request $request, $id){
         $page = $request->page;
         $post = Post::find($id);
-        $post->count++;
-        $post->save();
+        // $post->count++;
+        // $post->save();
+
+        if(Auth::user() != null && $post->viewers->contains(Auth::user())=== false){  
+            $post->viewers()->attach(Auth::user()->id);
+        }
 
         return view('posts.show', compact('post','page'));
     }
