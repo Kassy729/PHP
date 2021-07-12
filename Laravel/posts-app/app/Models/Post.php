@@ -20,7 +20,7 @@ class Post extends Model
     }
 
     public function viewers(){
-        return $this->belongsToMany(User::class, 'post_user', 'post_id', 'user_id', 'id', 'id', 'users');
+        return $this->belongsToMany(User::class, 'post_user', 'post_id', 'user_id', 'id', 'id', 'users');  //'posts는 본인이라 안써줘도 됨'
     }
 }
 
