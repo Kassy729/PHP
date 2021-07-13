@@ -49,9 +49,21 @@
                                                 {{-- user테이블과 조인해서 user테이블의 name을 사용 --}}
         </div>
 
-        {{-- <div class="m-5">
-            <a href="{{ route('posts.index', ['page'=>$page]) }}">목록보기</a> {{-- page정보를 넘겨 주어서 목록에서 페이지를 유지한다 --}}
-
+        
+        @auth
+          @can('update', $post)
+              <div class="flex">
+                  <div>
+                    <button class="btn btn-warning" onclick="location.href='{{ route('posts.edit', ['post'=>$post->id, 'page'=>$page]) }}'">수정</button>
+                  </div>
+                  <form action="{{ route('posts.delete', ['id'=>$post->id, 'page'=>$page]) }}" method="post">
+                    @csrf
+                    @method("delete")
+                    <button type="submit" class="btn btn-danger">삭제</button>
+                  </form>
+              </div>
+          @endcan  
+        @endauth
 
     </div>
 </body> 

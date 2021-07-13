@@ -14,4 +14,9 @@ class Post extends Model
         $imageFile = $this->image ?? 'frog.jpg';
         return $path.$imageFile;
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
 }
