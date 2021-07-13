@@ -1,3 +1,4 @@
+{{-- <x-app-layout> --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,3 +48,4 @@
     </div>
 </body>
 </html>
+{{-- </x-app-layout>  layouts안에 app.blade의 $slot부분에 끼워 넣겟다 --}}

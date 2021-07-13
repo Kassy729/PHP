@@ -46,15 +46,5 @@
             <a href="/" class="btn btn-primary">홈으로</a>  
         </form>
     </div>
-        <script>
-            ClassicEditor
-                    .create( document.querySelector( '#content' ) )
-                    .then( editor => {
-                            console.log( editor );
-                    } )
-                    .catch( error => {
-                            console.error( error );
-                    } );
-        </script>
 </body>
 </html>

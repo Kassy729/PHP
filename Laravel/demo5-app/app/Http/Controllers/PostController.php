@@ -36,6 +36,10 @@ class PostController extends Controller
 
         // }
 
+        if(Auth::user() != null && $post->viewers->contains(Auth::user()) === false){
+            $post->viewers()->attach(Auth::user()->id);
+        }
+
         return view('posts.show', compact('post', 'page'));  //$id를 $post에 담아서 compact로 보내줌, 페이지 정보도 같이 보내주어야함
     }
 
@@ -117,11 +121,11 @@ class PostController extends Controller
         }
         $post->save();
 
-        return redirect()->route('post.show', ['id'=>$id, 'page'=>$request->page]); 
+        return redirect()->route('posts.show', ['id'=>$id, 'page'=>$request->page]); 
 
     }
 
-    public function delete(Request $request, $id){
+    public function destroy(Request $request, $id){
         $post = Post::findOrFail($id);
 
         // if($request->user()->cannot('delete', $post)){

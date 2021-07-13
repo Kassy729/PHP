@@ -29,7 +29,7 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                {{ $slot }}  {{-- 내가 적고싶은 내용 넣겠다 --}}
             </main>
         </div>
     </body>
