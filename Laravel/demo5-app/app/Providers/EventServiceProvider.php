@@ -22,6 +22,10 @@ class EventServiceProvider extends ServiceProvider
             // ... other providers
             'SocialiteProviders\\Kakao\\KakaoExtendSocialite@handle',
         ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            // ... other providers
+            'SocialiteProviders\\Google\\GoogleExtendSocialite@handle',
+        ],
     ];
 
     /**

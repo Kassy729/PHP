@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
-class KaKaoAuthController extends Controller
+class GoogleAuthController extends Controller
 {
     public function __construct()
     {
@@ -17,12 +17,12 @@ class KaKaoAuthController extends Controller
     }
 
     public function redirect(){
-        return Socialite::driver('kakao')->redirect();
+        return Socialite::driver('google')->redirect();
     }
 
     public function callback(){
-        $user = Socialite::driver('kakao')->user();
-        dd($user);
+        $user = Socialite::driver('google')->user();
+        // dd($user);
 
         //DB에 사용자 정보를 저장한다
         //이미 이 사용자 정보가 DB에 저장되어 있다면
