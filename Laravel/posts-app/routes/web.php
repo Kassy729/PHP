@@ -44,3 +44,5 @@ Route::put('/posts/{id}', [PostController::class, 'update'])->name('post.update'
 Route::delete('posts/{id}', [PostController::class, 'destroy'])->name('post.delete');
 
 Route::get('/chart/index', [ChartController::class, 'index']);
+
+Route::post('/posts/search', [PostController::class, 'search'])->name('posts.search');

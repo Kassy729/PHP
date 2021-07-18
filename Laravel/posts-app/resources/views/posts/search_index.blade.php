@@ -1,4 +1,3 @@
-{{-- <x-app-layout> --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,15 +18,6 @@
         <a href="/posts/create" class="btn btn-primary">게시글 작성</a>  {{-- 게시글 작성할수있도록 create 버튼 생성 --}}
     @endauth
     <a href="/" class="btn btn-primary">홈으로</a>  
-    <form action="/posts/search" method="post"> 
-        @csrf
-        <div class="form-group">
-            <label for="search">검색</label>
-            <input type="text" name = "keyword" class="form-control" id="keyword">   
-        </div>
-    </form>
-
-
         <ul class="list-group">  {{-- blade 문법으로 작성 리스트를 값에 따라 동적으로 생성 --}}
             @foreach ($posts as $post)  
                 <li class="list-group-item">
@@ -36,16 +26,12 @@
                             {{-- 상세보기하기 위해 post.show링크 달기, 페이지 정보 도 넘겨주기 --}}
                         제목 : {{ $post->title }}
                         </a> 
-
                     </span>  {{-- 컨트롤러로 부터 받은 $posts값을 속성을 이용해 빼서 사용 --}}
                     
                     {{-- <div>
                         내용 : {{ $post->content }}
-                    </div> --}}
-                    <span>작성일 : {{ $post->created_at->diffForHumans() }}
-                        {{ $post->viewers->count() }}
-                        {{ $post->viewers->count() > 0 ? Str::plural('view', $post->viewers->count()) : 'view' }}
-                    </span> 
+                    </div>
+                    <span>작성일 : {{ $post->created_at->diffForHumans() }}</span> --}}
                     <hr>
                 </li>
             @endforeach
@@ -55,7 +41,5 @@
             {{ $posts->links() }}  {{-- 페이지 넘기는 버튼 --}}
         </div>
     </div>
-
 </body>
 </html>
-{{-- </x-app-layout>  layouts안에 app.blade의 $slot부분에 끼워 넣겟다 --}}

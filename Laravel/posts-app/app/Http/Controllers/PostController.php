@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -33,7 +34,6 @@ class PostController extends Controller
 
         if (Auth::user() != null && $post->viewers->contains(Auth::user()) === false){  //포함하면
             $post->viewers()->attach(Auth::user()->id);  //피벗테이블에 attach로 넣어라(insert 느낌)
-
         }
 
         return view('posts.show', compact('post', 'page'));  //$id를 $post에 담아서 compact로 보내줌, 페이지 정보도 같이 보내주어야함
@@ -60,12 +60,23 @@ class PostController extends Controller
         return view('posts/create');
     }
 
+    public function search(Request $request){
+        $keyword = $request->keyword;
+
+        // $posts = DB::table('posts')->select('title')->where('title', $keyword)->get();
+        $posts = Post::where('title', $keyword)-> latest() -> paginate(5);
+        // dd($posts);
+        return view('posts.search_index', compact('posts'));        
+    }
+
     public function store(Request $request){
         // $request->input('title');
         // $request->input('content');
 
         $title = $request->title;  
         $content = $request->content;
+
+        // dd($request);
 
         $request->validate([  //빈칸일 경우 제출되지 않도록 막아줌
             'title' => 'required|min:3',  //최소 3글자 이상
@@ -94,6 +105,8 @@ class PostController extends Controller
         return redirect('/posts/index'); 
         // return view('posts.index');  //refresh 했을때 계속 게시글이 반복해서 올라감 
     }
+
+
 
     
 
@@ -174,8 +187,12 @@ class PostController extends Controller
 
         $posts = Post::where('user_id', $id)-> latest() -> paginate(5);
 
+        // dd($posts);
+
         return view('posts.my_index', compact('posts'));
     }
+
+    
 
 
 

@@ -136,6 +136,10 @@ return [
 
     'providers' => [
 
+        // Other service providers...
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        \SocialiteProviders\Manager\ServiceProvider::class,
+
         /*
          * Laravel Framework Service Providers...
          */

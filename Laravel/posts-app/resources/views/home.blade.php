@@ -54,6 +54,7 @@
                     @else
                         <p>로그인이 필요합니다</p>
                     @endauth
+                    <a href="/posts/index" class="btn btn-primary">게시글</a>
                 </div>
         @endif
 </body>

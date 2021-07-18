@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
@@ -52,4 +53,14 @@ class User extends Authenticatable
         // return $this->belongsToMany(Post::class);
         return $this->belongsToMany(Post::class, 'post_user', 'user_id', 'post_id', 'id', 'id', 'posts');  //users는 본인이라 사용하지않음
     }
+
+    // use Searchable;
+
+    // public function getScoutKey(){
+    //     return $this->email;
+    // }
+
+    // public function getScoutKeyName(){
+    //     return 'email';
+    // }
 }
