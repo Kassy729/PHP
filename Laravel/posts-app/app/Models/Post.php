@@ -24,6 +24,11 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'post_user', 'post_id', 'user_id', 'id', 'id', 'users');  //'posts는 본인이라 안써줘도 됨'
     }
 
+    public function comments(){
+        return $this->hasMany(Comment::class);  //외래키를 적어야 하지만 관례를 따라서 생략 가능
+    }
+
+
     // use Searchable;
 
     // public function searchableAs()

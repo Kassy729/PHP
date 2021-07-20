@@ -46,3 +46,5 @@ Route::delete('posts/{id}', [PostController::class, 'destroy'])->name('post.dele
 Route::get('/chart/index', [ChartController::class, 'index']);
 
 Route::post('/posts/search', [PostController::class, 'search'])->name('posts.search');
+
+Route::post('/posts/comment/{id}', [PostController::class, 'comment'])->name('posts.comment');

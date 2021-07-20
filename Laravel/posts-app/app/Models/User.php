@@ -54,6 +54,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Post::class, 'post_user', 'user_id', 'post_id', 'id', 'id', 'posts');  //users는 본인이라 사용하지않음
     }
 
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
     // use Searchable;
 
     // public function getScoutKey(){

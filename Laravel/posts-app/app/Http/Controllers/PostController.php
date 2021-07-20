@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -64,9 +65,26 @@ class PostController extends Controller
         $keyword = $request->keyword;
 
         // $posts = DB::table('posts')->select('title')->where('title', $keyword)->get();
-        $posts = Post::where('title', $keyword)-> latest() -> paginate(5);
+        $posts = Post::where('title','like', '%'.$keyword.'%')-> latest() -> paginate(5);
         // dd($posts);
         return view('posts.search_index', compact('posts'));        
+    }
+
+    public function comment(Request $request, $id){
+        // dd($id);
+        $content = $request->content;
+        $page = $request->page;
+        // dd($request);
+
+        $comment = new Comment();  
+        $comment->content = $content;
+        $comment->user_id = Auth::user()->id;
+        $comment->post_id = $id;
+        // $comment->post_id = $id;
+
+        $comment->save();
+
+        return redirect()->route('post.show', ['id' => $id, 'page' => $page]);
     }
 
     public function store(Request $request){
@@ -84,7 +102,7 @@ class PostController extends Controller
             'imageFile' => 'image|max:2000'
         ]);
 
-        // dd($request);
+        dd($request);
 
         //DB에 저장
         $post = new Post();  
@@ -107,8 +125,6 @@ class PostController extends Controller
     }
 
 
-
-    
 
     public function edit(Request $request, Post $post){  //라라벨 능력으로 Post로 바로 값을 가져와서 find 하지 않아도 된다
         // $post = Post::find($id);

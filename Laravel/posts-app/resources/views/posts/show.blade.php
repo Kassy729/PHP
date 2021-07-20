@@ -17,11 +17,10 @@
             <a href="{{ route('posts.my_index', ['page'=>$page]) }}">내목록보기</a> {{-- page정보를 넘겨 주어서 목록에서 페이지를 유지한다, 라우터 설정할땐 이름으로 --}}
 
         </div>
-
+        <button type="submit" class="btn btn-primary">좋아요</button><hr> 
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" readonly name = "title" class="form-control" id="title" value="{{ $post->title }}">{{-- input의 name값은 지정한 값으로 해야함 --}} 
-
         </div>
         <div class="form-group">
             <label for="content">Content</label>
@@ -52,8 +51,20 @@
         {{-- <div class="m-5">
             <a href="{{ route('posts.index', ['page'=>$page]) }}">목록보기</a> {{-- page정보를 넘겨 주어서 목록에서 페이지를 유지한다 --}}
 
+            <div class="form-group">
+                <label for="content">댓글</label>
+                <textarea class="form-control" 
+                    id="content" name = "content" readonly>{{ $post->comment->content }}</textarea>
+            </div>
         @auth
             {{-- @if (auth()->user()->id == $post->user_id) --}}
+            <form action="{{ route('posts.comment', ['id' => $post->id, 'page'=>$page]) }}" method="post"> 
+                @csrf
+                <div class="form-group">
+                    {{-- <label for="search">댓글</label> --}}
+                    <input type="text" name = "content" class="form-control" id="content">   
+                </div>
+            </form><hr>
             @can('update', $post)
                 <div class="flex">
                     <div>
