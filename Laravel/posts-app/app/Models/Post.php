@@ -28,6 +28,10 @@ class Post extends Model
         return $this->hasMany(Comment::class);  //외래키를 적어야 하지만 관례를 따라서 생략 가능
     }
 
+    public function likes(){
+        return $this->hasMany(Like::class);  //외래키를 적어야 하지만 관례를 따라서 생략 가능
+    }
+
 
     // use Searchable;
 

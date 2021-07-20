@@ -29,7 +29,7 @@ class PostController extends Controller
         /*
         이 글을 조회한 사용자들 중에, 현재
         로그인한 사용자가 포함되어 있는지를 체크하고
-        포함되어 있지 않으면 추가,
+        포함되어 있지 않으면 추가,s
         포함되어 있으면 다음 단계로 넘어감.
         */
 
@@ -102,7 +102,7 @@ class PostController extends Controller
             'imageFile' => 'image|max:2000'
         ]);
 
-        dd($request);
+        // dd($request);
 
         //DB에 저장
         $post = new Post();  

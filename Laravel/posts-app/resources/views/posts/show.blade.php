@@ -53,8 +53,15 @@
 
             <div class="form-group">
                 <label for="content">댓글</label>
-                <textarea class="form-control" 
-                    id="content" name = "content" readonly>{{ $post->comment->content }}</textarea>
+                {{-- <p class="form-control"  
+                    id="content" name = "content" readonly> --}}
+                        
+                    <p>@foreach($post->comments as $comment)
+                        작성자 : {{$comment->user->name }}<br>
+                        내용 : {{$comment ->content }}<br>
+                        작성일 : {{ $comment ->created_at }}<hr>
+                    @endforeach</p>
+                {{-- </p>  --}}
             </div>
         @auth
             {{-- @if (auth()->user()->id == $post->user_id) --}}
