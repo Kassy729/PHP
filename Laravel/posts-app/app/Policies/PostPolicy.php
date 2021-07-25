@@ -68,6 +68,7 @@ class PostPolicy
         return $user->id === $post->user_id;
     }
 
+
     /**
      * Determine whether the user can restore the model.
      *

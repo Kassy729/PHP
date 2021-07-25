@@ -44,6 +44,7 @@
                     </div> --}}
                     <span>작성일 : {{ $post->created_at->diffForHumans() }}
                         {{ $post->viewers->count() }}
+                        {{-- {{ $post->likes }} --}}
                         {{ $post->viewers->count() > 0 ? Str::plural('view', $post->viewers->count()) : 'view' }}
                     </span> 
                     

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +22,20 @@ class PostController extends Controller
         $this->middleware(['auth'])->except(['home', 'index', 'show']); 
     }
 
+    public function like(Request $request, $id){
+        $page = $request->page;  //쿼리스트링에서 준건 request로 받아야한다
+        $post = Post::find($id);
+        $like = Like::all()->where('post_id', '=', $id)->where('user_id', '=', auth()->user()->id)->first();
+
+        if (Auth::user() != null && !$post->likes->contains(Auth::user())){  //포함하면
+            $post->likes()->attach(Auth::user()->id);  //피벗테이블에 attach로 넣어라(insert 느낌)
+        }else if(Auth::user() != null && $post->likes->contains(Auth::user())){
+            $like->delete();
+        }
+
+        return redirect()->route('post.show', ['post'=>$post, 'page'=>$page, 'id'=>$id]);
+    }
+
     public function show(Request $request, $id){  //currentPage 정보를 
         $page = $request->page;  //쿼리스트링에서 준건 request로 받아야한다
         $post = Post::find($id);
@@ -32,6 +47,7 @@ class PostController extends Controller
         포함되어 있지 않으면 추가,s
         포함되어 있으면 다음 단계로 넘어감.
         */
+
 
         if (Auth::user() != null && $post->viewers->contains(Auth::user()) === false){  //포함하면
             $post->viewers()->attach(Auth::user()->id);  //피벗테이블에 attach로 넣어라(insert 느낌)
@@ -71,7 +87,6 @@ class PostController extends Controller
     }
 
     public function comment(Request $request, $id){
-        // dd($id);
         $content = $request->content;
         $page = $request->page;
         // dd($request);
@@ -168,6 +183,37 @@ class PostController extends Controller
         return redirect()->route('post.show', ['id'=>$id, 'page'=>$request->page]);  //페이지 정보를 같이 줘야함 페이지 정보를 계속 물고 가야함
     }
 
+
+    public function comment_destroy(Request $request, $id){  //page정보도 같이 넘겨주어서 삭제후 그 페이지를 유지한다
+        //파일 시스템에서 이미지 파일 삭제
+        //게시글을 데이터베이스에서 삭제
+        // $post = Post::findOrFail($id);  //찾고 없으면 에러
+
+        //Authorization 즉 수정 권한이 있는지 검사
+        //즉, 로그인한 사용자와 게시글의 작성자가 같은지 체크
+        // if(auth()->user()->id != $post->user_id){
+        //     abort(403);
+        // }
+
+        // if($request->user()->cannot('delete', $post)){
+        //     abort(403);
+        // }
+
+        // dd($request);
+        $page = $request->page;
+
+        // if($post->image){
+        //     $imagePath = 'public/images/'.$post->image;
+        //     Storage::delete($imagePath); 
+        // }
+        $post=DB::table('comments')->where('id', $id);
+        
+
+        $post->delete();
+        // return redirect()->route('post.show', ['page'=>$page]);
+        return redirect()->route('post.show', ['id'=>$page]);
+
+    }
 
     public function destroy(Request $request, $id){  //page정보도 같이 넘겨주어서 삭제후 그 페이지를 유지한다
         //파일 시스템에서 이미지 파일 삭제

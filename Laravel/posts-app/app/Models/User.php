@@ -54,6 +54,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Post::class, 'post_user', 'user_id', 'post_id', 'id', 'id', 'posts');  //users는 본인이라 사용하지않음
     }
 
+    public function like_posts(){
+        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id', 'id', 'id', 'posts');
+    }
+
     public function comments(){
         return $this->hasMany(Comment::class);
     }

@@ -30,6 +30,7 @@ Route::get('posts/create', [PostController::class, 'create']);/*->middleware(['a
 Route::post('posts/store', [PostController::class, 'store'])->name('posts.store'); 
 /*->middleware(['auth']);*/
 
+Route::get('/posts/like/{id}', [PostController::class, 'like'])->name('posts.like');
 
 Route::get('/posts/index', [PostController::class, 'index'])->name('posts.index');
 
@@ -41,10 +42,12 @@ Route::get('/posts/show/{id}', [PostController::class, 'show'])->name('post.show
 Route::get('/posts/{post}', [PostController::class, 'edit'])->name('post.edit');
 Route::put('/posts/{id}', [PostController::class, 'update'])->name('post.update');
 
-Route::delete('posts/{id}', [PostController::class, 'destroy'])->name('post.delete');
+Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('post.delete');
+Route::delete('/posts/comment_destroy/{id}', [PostController::class, 'comment_destroy'])->name('post.comment-delete');
 
 Route::get('/chart/index', [ChartController::class, 'index']);
 
 Route::post('/posts/search', [PostController::class, 'search'])->name('posts.search');
 
 Route::post('/posts/comment/{id}', [PostController::class, 'comment'])->name('posts.comment');
+

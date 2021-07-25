@@ -17,7 +17,6 @@
             <a href="{{ route('posts.my_index', ['page'=>$page]) }}">내목록보기</a> {{-- page정보를 넘겨 주어서 목록에서 페이지를 유지한다, 라우터 설정할땐 이름으로 --}}
 
         </div>
-        <button type="submit" class="btn btn-primary">좋아요</button><hr> 
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" readonly name = "title" class="form-control" id="title" value="{{ $post->title }}">{{-- input의 name값은 지정한 값으로 해야함 --}} 
@@ -48,27 +47,35 @@
                                                 {{-- user테이블과 조인해서 user테이블의 name을 사용 --}}
         </div>
 
+        <div>
+            <button class="btn btn-primary" onclick="location.href='{{ route('posts.like',['id'=>$post->id, 'page'=>$page]) }}'">좋아요 : {{ $post->likes->count() }}</button>
+        </div>
+
         {{-- <div class="m-5">
             <a href="{{ route('posts.index', ['page'=>$page]) }}">목록보기</a> {{-- page정보를 넘겨 주어서 목록에서 페이지를 유지한다 --}}
 
             <div class="form-group">
-                <label for="content">댓글</label>
-                {{-- <p class="form-control"  
-                    id="content" name = "content" readonly> --}}
-                        
-                    <p>@foreach($post->comments as $comment)
-                        작성자 : {{$comment->user->name }}<br>
+                <label for="content">댓글</label>                  
+                    @foreach($post->comments as $comment)
+                    <p>작성자 : {{$comment->user->name }}<br>
                         내용 : {{$comment ->content }}<br>
-                        작성일 : {{ $comment ->created_at }}<hr>
-                    @endforeach</p>
-                {{-- </p>  --}}
+                        작성일 : {{ $comment ->created_at }}<br>
+                            @if (auth()->user()->id == $comment->user_id)
+                            <form action="{{ route( 'post.comment-delete', ['id'=>$comment->id, 'page'=>$post->id] )}}" method="post">
+                                @csrf
+                                @method("delete")
+                                <button type="submit" class="btn btn-danger">삭제</button> 
+                            </form></p>
+                            @endif
+                            <hr>
+                    @endforeach
             </div>
         @auth
             {{-- @if (auth()->user()->id == $post->user_id) --}}
             <form action="{{ route('posts.comment', ['id' => $post->id, 'page'=>$page]) }}" method="post"> 
                 @csrf
                 <div class="form-group">
-                    {{-- <label for="search">댓글</label> --}}
+                    <label for="search">댓글</label>
                     <input type="text" name = "content" class="form-control" id="content">   
                 </div>
             </form><hr>
