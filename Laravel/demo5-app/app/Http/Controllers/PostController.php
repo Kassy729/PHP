@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -62,6 +63,21 @@ class PostController extends Controller
     
     public function create(){
         return view('posts/create');
+    }
+
+    public function comment(Request $request, $id){
+        $content = $request->content;
+        $page = $request->page;
+
+        $comment = new Comment();  
+        $comment->content = $content;
+        $comment->user_id = Auth::user()->id;
+        $comment->post_id = $id;
+
+        $comment->save();
+
+        return redirect()->route('posts.show', ['id'=>$id, 'page'=> $page]); 
+        
     }
 
     public function store(Request $request){

@@ -48,9 +48,20 @@
             <input type="text" readonly class="form-control" value="{{ $post->user->name }}">  
                                                 {{-- user테이블과 조인해서 user테이블의 name을 사용 --}}
         </div>
-
         
+        <div class="form-group">
+            <label for="content">댓글</label>
+            <input type="text" readonly name = "content" class="form-control" id="title" value="{{ $post->comment->id }}">
+        </div>
+
         @auth
+        <form action="{{ route('posts.comment', ['id' => $post->id, 'page'=>$page]) }}" method="post" enctype="multipart/form-data">    
+            @csrf
+            <div class="form-group">
+                <input type="text" name = "content" class="form-control" id="content">                  
+            </div>
+        </form>
+
           @can('update', $post)
               <div class="flex">
                   <div>
