@@ -27,6 +27,7 @@ class PostController extends Controller
         $post = Post::find($id);
         $like = Like::all()->where('post_id', '=', $id)->where('user_id', '=', auth()->user()->id)->first();
 
+
         if (Auth::user() != null && !$post->likes->contains(Auth::user())){  //포함하면
             $post->likes()->attach(Auth::user()->id);  //피벗테이블에 attach로 넣어라(insert 느낌)
         }else if(Auth::user() != null && $post->likes->contains(Auth::user())){

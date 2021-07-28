@@ -48,10 +48,26 @@
             <input type="text" readonly class="form-control" value="{{ $post->user->name }}">  
                                                 {{-- user테이블과 조인해서 user테이블의 name을 사용 --}}
         </div>
-        
+
+        <div>
+            <button class="btn btn-primary" onclick="location.href='{{ route('posts.like',['id'=>$post->id, 'page'=>$page]) }}'">좋아요 :{{ $post->likes->count() }}</button>
+        </div>
+
         <div class="form-group">
-            <label for="content">댓글</label>
-            <input type="text" readonly name = "content" class="form-control" id="title" value="{{ $post->comment->id }}">
+            <label for="content">댓글</label>  
+                @foreach($post->comments as $comment)
+                <p>작성자 : {{$comment->user->name }}<br>
+                    내용 : {{$comment ->content }}<br>
+                    작성일 : {{ $comment ->created_at }}<br>
+                        @if (auth()->user()->id == $comment->user_id)
+                        <form action="{{ route( 'posts.comment_delete', ['id'=>$comment->id, 'page'=>$post->id] )}}" method="post">
+                            @csrf
+                            @method("delete")
+                            <button type="submit" class="btn btn-danger">삭제</button> 
+                        </form></p>
+                        @endif
+                        <hr>
+                @endforeach
         </div>
 
         @auth

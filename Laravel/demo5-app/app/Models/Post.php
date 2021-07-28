@@ -19,12 +19,16 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function comment(){
+    public function comments(){
         return $this->hasMany(Comment::class);
     }
 
     public function viewers(){
         return $this->belongsToMany(User::class, 'post_user', 'post_id', 'user_id', 'id', 'id', 'users');
+    }
+
+    public function likes(){
+        return $this->belongsToMany(User::class, 'likes', 'post_id', 'user_id', 'id', 'id', 'users');
     }
 
 }

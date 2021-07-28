@@ -31,6 +31,8 @@ Route::post('posts/store', [PostController::class, 'store'])->name('posts.store'
 
 Route::post('/posts/comment/{id}', [PostController::class, 'comment'])->name('posts.comment');
 
+Route::delete('/posts/comment-delete/{id}', [PostController::class, 'comment_delete'])->name('posts.comment_delete');
+
 Route::get('/posts/index', [PostController::class, 'index'])->name('posts.index');
 
 Route::get('/posts/show/{id}', [PostController::class, 'show'])->name('posts.show');
@@ -42,3 +44,5 @@ Route::put('posts/{id}', [PostController::class, 'update'])->name('posts.update'
 Route::delete('posts/{id}', [PostController::class, 'destroy'])->name('posts.delete');
 
 Route::get('/chart/index', [ChartController::class, 'index']);
+
+Route::get('/posts/like/{id}', [PostController::class, 'like'])->name('posts.like');

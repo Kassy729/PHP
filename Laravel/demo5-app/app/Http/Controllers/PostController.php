@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -78,6 +80,15 @@ class PostController extends Controller
 
         return redirect()->route('posts.show', ['id'=>$id, 'page'=> $page]); 
         
+    }
+
+    public function comment_delete(Request $request, $id){
+        $page = $request->page;
+        $comment = DB::table('comments')->where('id', $id);
+        
+        $comment->delete();
+
+        return redirect()->route('posts.show', ['id'=>$page]);
     }
 
     public function store(Request $request){
@@ -156,6 +167,22 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route('posts.index', ['page'=>$page]);
+    }
+
+    public function like(Request $request, $id){
+        $page = $request->page;
+        $post = Post::find($id);
+
+        $like = Like::all()->where('post_id', '=', $id)->where('user_id', '=', auth()->user()->id)->first();
+
+        if (Auth::user() != null && !$post->likes->contains(Auth::user())){  
+            $post->likes()->attach(Auth::user()->id); 
+        }
+        else if(Auth::user() != null && $post->likes->contains(Auth::user())){
+            $like->delete();
+        }  
+
+        return redirect()->route('posts.show', ['post'=>$post, 'page'=>$page, 'id'=>$id]);
     }
 
 

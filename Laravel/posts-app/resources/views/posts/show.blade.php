@@ -55,7 +55,7 @@
             <a href="{{ route('posts.index', ['page'=>$page]) }}">목록보기</a> {{-- page정보를 넘겨 주어서 목록에서 페이지를 유지한다 --}}
 
             <div class="form-group">
-                <label for="content">댓글</label>                  
+                <label for="content">댓글</label>  
                     @foreach($post->comments as $comment)
                     <p>작성자 : {{$comment->user->name }}<br>
                         내용 : {{$comment ->content }}<br>
@@ -75,7 +75,7 @@
             <form action="{{ route('posts.comment', ['id' => $post->id, 'page'=>$page]) }}" method="post"> 
                 @csrf
                 <div class="form-group">
-                    <label for="search">댓글</label>
+                    <label for="comment">댓글</label>
                     <input type="text" name = "content" class="form-control" id="content">   
                 </div>
             </form><hr>
