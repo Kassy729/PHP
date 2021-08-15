@@ -15,6 +15,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('게시글작성') }}
+                    </x-nav-link>
+
                     <x-nav-link :href="route('index')" :active="request()->routeIs('dashboard')">
                         {{ __('Post') }}
                     </x-nav-link>

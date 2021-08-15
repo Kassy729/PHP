@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+Route::get('/posts', [PostController::class, 'index']);
+
 Route::prefix('/post')->group(function(){
     Route::post('/store', [PostController::class, 'store']);
 });

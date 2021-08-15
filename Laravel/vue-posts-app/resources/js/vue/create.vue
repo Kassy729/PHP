@@ -1,44 +1,55 @@
 <template>
-    <div class="addItem">
-        <label for="title">Title</label>
-        <input type="text" v-model="post.title"/><br><br>
-        <label for="content">Content</label>
-        <input type="text" v-model="post.content"><br><br>
-        <button @click="addPost()">작성</button>
+    <div class="postContainer">
+        <div class="heading">
+            <h2 id="title">게시판</h2>
+            <store v-on:reloadlist="getPost()"></store>
+        </div>
     </div>
 </template>
 
-
 <script>
+import store from './store.vue'
+
 export default {
+    components:{
+        store
+    },
     data: function(){
         return {
-            post:{
-                title:"",
-                content:"",
-            }
+            posts: []
         }
     },
     methods:{
-        addPost(){
-            if(this.post.title == '' || this.post.content == '')
-                return;
-            
-            axios.post('api/posts/store', {
-                post: this.post
-            })
+        getList(){
+            axios.get('api/posts')
             .then(response => {
-                if(response.status == 201){
-                    this.post.title="";
-                    this.post.content="";
-                    // this.$emit('')
-                }
+                this.posts = response.data
             })
             .catch(error => {
                 console.log(error);
             })
         }
-    }    
+    },
+    created(){
+        this.getList();
+    }
 }
 </script>
 
+
+
+<style scoped>
+.todoListContainer{
+    width: 350px;
+    margin: auto;
+}
+
+.heading{
+    background: #e6e6e6;
+    padding: 10px;
+}
+
+#title{
+    text-align: center;
+}
+</style>
