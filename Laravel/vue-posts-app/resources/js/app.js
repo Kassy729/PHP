@@ -3,7 +3,7 @@ require('./bootstrap');
 require('alpinejs');
 
 import Vue from 'vue'
-import Create from './vue/create'
+import App from './vue/app'
 
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -15,7 +15,7 @@ library.add( faPlusSquare, faSquare )
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 
-const create = new Vue({
-    el: '#create',
-    components: { Create }
+const app = new Vue({
+    el: '#app',
+    components: { App }
 });

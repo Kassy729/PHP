@@ -12,10 +12,6 @@ class PostController extends Controller
         return view('home');
     }
 
-    public function index(){
-        return Post::orderBy('created_at', 'DESC')->get();
-    }
-
     public function store(Request $request){
         $title = $request->title;
         $content = $request->content;

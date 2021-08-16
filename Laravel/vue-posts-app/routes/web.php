@@ -24,4 +24,6 @@ Route::get('/dashboard', function () {
 
 Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
 
+
+
 require __DIR__.'/auth.php';

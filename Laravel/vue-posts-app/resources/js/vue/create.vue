@@ -2,7 +2,7 @@
     <div class="postContainer">
         <div class="heading">
             <h2 id="title">게시판</h2>
-            <store v-on:reloadlist="getPost()"></store>
+            <store></store>
         </div>
     </div>
 </template>
@@ -20,19 +20,8 @@ export default {
         }
     },
     methods:{
-        getList(){
-            axios.get('api/posts')
-            .then(response => {
-                this.posts = response.data
-            })
-            .catch(error => {
-                console.log(error);
-            })
-        }
+        
     },
-    created(){
-        this.getList();
-    }
 }
 </script>
 
