@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Monolog\Handler\RotatingFileHandler;
 
@@ -23,5 +24,11 @@ Route::get('/app', function () {
 });
 
 Route::get('/hi', function () {
-    return view('layouts.hello');
+    return view('hello');
 });
+
+// Route::get('/post', [PostsController::class, 'index']);
+// Route::get('/create', [PostsController::class, 'create']);
+// Route::post('/store', [PostsController::class, 'store']);
+
+Route::resource('/posts', PostController::class);
