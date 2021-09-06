@@ -17,7 +17,8 @@ class PostList extends Component
 
     public function __construct($posts)
     {
-        $this->posts->$posts;
+        // dd($posts);
+        $this->posts = $posts;
     }
 
     /**

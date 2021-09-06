@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
-use Monolog\Handler\RotatingFileHandler;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,20 +14,16 @@ use Monolog\Handler\RotatingFileHandler;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/app', function () {
-    return view('layouts.app');
-});
 
-Route::get('/hi', function () {
-    return view('hello');
-});
+Route::resource('/posts', PostController::class)
+    ->middleware(['auth']);
 
-// Route::get('/post', [PostsController::class, 'index']);
-// Route::get('/create', [PostsController::class, 'create']);
-// Route::post('/store', [PostsController::class, 'store']);
+// Route::get('/posts', [PostController::class, "index"])->name('posts.index');
 
-Route::resource('/posts', PostController::class);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+
+require __DIR__ . '/auth.php';
