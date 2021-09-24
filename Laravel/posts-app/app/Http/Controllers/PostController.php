@@ -141,6 +141,8 @@ class PostController extends Controller
         if ($request->file('imageFile')) { //nullException 방지
             $post->image = $this->uploadPostImage($request);
         }
+        return $post;
+
         $post->save();
 
 
