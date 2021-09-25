@@ -4,13 +4,17 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class PostIndex extends Component
+class PostShow extends Component
 {
-    public $posts;
-
-    public function __construct($posts)
+    public $post;
+    /**
+     * Create a new component instance.
+     *
+     * @return void
+     */
+    public function __construct($post)
     {
-        $this->posts = $posts;
+        $this->post = $post;
     }
 
     /**
@@ -20,6 +24,6 @@ class PostIndex extends Component
      */
     public function render()
     {
-        return view('components.post-index');
+        return view('components.post-show');
     }
 }

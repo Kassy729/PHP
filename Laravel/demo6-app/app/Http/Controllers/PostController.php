@@ -15,6 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {
+        $posts = Post::latest()->paginate(5);
+
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -35,7 +38,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        $this->validate(
+            $request,
+            [
+                'title' => 'required',
+                'content' => 'required|min:3'
+            ]
+        );
+
         $title = $request->title;
         $content = $request->content;
 
@@ -43,9 +53,17 @@ class PostController extends Controller
         $post->title = $title;
         $post->content = $content;
         $post->user_id = Auth::user()->id;
+
+        $fileName = null;
+        if ($request->hasFile('image')) {
+            $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public/images', $fileName);
+            $post->image = $fileName;
+        }
+
         $post->save();
 
-        return view('posts.index');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -56,7 +74,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.show', ['post' => $post]);
     }
 
     /**
@@ -90,6 +109,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::find($id)->delete();
+        return redirect()->route('posts.index');
     }
 }

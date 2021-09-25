@@ -27,6 +27,11 @@
         </div>
 
         <div class="col-12 m-2">
+            <label for="image" class="form-label">첨부 이미지</label>
+            <input name="image" type="file" class="form-control" id="image">
+        </div>
+
+        <div class="col-12 m-2">
             <button type="submit" class="btn btn-primary">작성</button>
         </div>
     </form>
