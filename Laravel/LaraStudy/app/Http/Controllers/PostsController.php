@@ -147,7 +147,7 @@ class PostsController extends Controller
             }
             $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
             $post->image = $fileName;
-            $request->image->storeAs('public/images/' . $fileName);
+            $request->image->storeAs('public/images/', $fileName);
         }
         $post->save();
         /* update posts set title = $request->title,
