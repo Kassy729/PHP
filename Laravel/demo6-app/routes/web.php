@@ -18,7 +18,7 @@ Route::resource('/posts', PostController::class)->middleware(['auth']);
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Home');
 });
 
 Route::get('/dashboard', function () {
