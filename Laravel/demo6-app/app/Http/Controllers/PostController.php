@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -98,6 +100,25 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request);
+        $title = $request->title;
+        $content = $request->content;
+
+        $post = Post::find($id);
+
+        $post->title = $title;
+        $post->content = $content;
+
+        if ($request->image) {
+            if ($post->image) {
+                Storage::delete('public/images/' . $post->image);
+            }
+            $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
+            $post->image = $fileName;
+            $request->image->storeAs('public/images/', $fileName);
+        }
+        $post->save();
+        return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
     /**
