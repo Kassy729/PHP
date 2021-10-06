@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -62,6 +63,7 @@ class PostController extends Controller
         }
 
         $post->save();
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -70,9 +72,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $page = $request->page;
+        $post = Post::find($id);
+        return view('posts.show', compact('post', 'page'));
     }
 
     /**
@@ -83,7 +87,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -95,7 +100,32 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(
+            $request,
+            [
+                'title' => 'required',
+                'content' => 'required|min:3'
+            ]
+        );
+
+        $title = $request->title;
+        $content = $request->content;
+
+        $post = Post::find($id);
+        $post->title = $title;
+        $post->content = $content;
+
+        if ($request->image) {
+            if ($post->image) {
+                Storage::delete(['public/storage/' . $post->image]);
+            }
+            $fileName = time() . '_' . $post->image;
+            $request->image->storeAs('public/images', $fileName);
+            $post->image = $fileName;
+        }
+        $post->save();
+
+        return redirect()->route('posts.show', ['post' => $post]);
     }
 
     /**
@@ -104,8 +134,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $post = Post::find($id);
+
+        $page = $request->page;
+
+        $post->delete();
+        return redirect()->route('posts.index', ['page' => $page]);
     }
 }
