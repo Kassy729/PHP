@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LikesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 
@@ -18,6 +19,8 @@ use App\Http\Controllers\PostsController;
 Route::resource('/posts', PostsController::class)->middleware(['auth']);
 
 Route::delete('/posts/images/{id}', [PostsController::class, "deleteImage"])->middleware(['auth']);
+
+Route::post('/like/{$post}', [LikesController::class, 'store'])->middleware(['auth']);
 
 Route::get('/', function () {
     return view('dashboard');
