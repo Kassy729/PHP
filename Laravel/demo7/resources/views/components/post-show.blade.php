@@ -10,11 +10,16 @@
       <h5 class="card-title">제목 : {{ $post->title }}</h5>
       <p class="card-text">내용 : {{ $post->content }}</p>
     </div>
+    <div>
+        <like-button :post="{{ $post }}"
+        :loginuser="{{ auth()->user()->id }}"/>
+    </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item">작성자 : {{ $post->user->name }}</li>
       <li class="list-group-item">게시일 : {{ $post->created_at }}</li>
       <li class="list-group-item">업데이트 : {{$post->updated_at->diffForHumans()}}</li>
     </ul>
+
     <div class="card-body flex">
             <button onclick="location.href='{{ route('posts.edit', ['post' => $post->id]) }}'" type="submit" class="btn btn-warning">수정</button>
         <form action="{{ route('posts.destroy', ['post' => $post->id]) }}"

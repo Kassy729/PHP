@@ -75,7 +75,7 @@ class PostController extends Controller
     public function show(Request $request, $id)
     {
         $page = $request->page;
-        $post = Post::find($id);
+        $post = Post::with('likes')->find($id);
         return view('posts.show', compact('post', 'page'));
     }
 
