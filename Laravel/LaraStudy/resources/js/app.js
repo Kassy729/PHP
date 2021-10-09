@@ -23,6 +23,7 @@ Vue.component(
     "example-component",
     require("./components/ExampleComponent.vue").default
 );
+
 Vue.component("like-button", require("./components/LikeButton.vue").default);
 
 /**

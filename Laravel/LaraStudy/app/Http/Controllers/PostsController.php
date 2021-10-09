@@ -98,7 +98,7 @@ class PostsController extends Controller
     {
         // $id에 해당하는 Post를 데이터베이스에서 인출
         // 그 놈을 상세보기 뷰로 전달한다.
-        $post = Post::find($id);
+        $post = Post::with('likes')->find($id);
         return view('bbs.show', ['post' => $post]);
     }
 

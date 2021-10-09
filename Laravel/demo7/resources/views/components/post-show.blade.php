@@ -17,7 +17,7 @@
     </ul>
     <div class="card-body flex">
             <button onclick="location.href='{{ route('posts.edit', ['post' => $post->id]) }}'" type="submit" class="btn btn-warning">수정</button>
-        <form action="{{ route('posts.destroy', ['post' => $post->id, 'page' => $page]) }}"
+        <form action="{{ route('posts.destroy', ['post' => $post->id]) }}"
               method="post">
             @csrf
             @method('delete')

@@ -1,7 +1,7 @@
 <div>
     <!-- Be present above all else. - Naval Ravikant -->
     <div class="card" style="width: 18rem;">
-        @if ($post -> image)
+        @if ($post->image)
         <img src="{{ '/storage/images/'.$post->image }}" class="card-img-top" alt="my post image">
         @else
             <span>첨부 이미지 없음</span>
@@ -9,7 +9,10 @@
         <div class="card-body">
           <h5 class="card-title">{{ $post->title }}</h5>
           <p class="card-text">{{ $post->content }}</p>
-            <like-button/>
+          <div>
+            <like-button :post="{{ $post }}"
+            :loginuser="{{ auth()->user()->id }}"/>
+          </div>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">등록일 : {{ $post->created_at->diffForHumans() }}</li>
@@ -27,7 +30,7 @@
         </div>
       </div>
 
-      <script>
+      <script type="application/javascript">
           function confirmDelete(e){
               myform = document.getElementById('form');
               flag = confirm('정말 삭제하시겠습니까?');
@@ -36,10 +39,7 @@
                   //서브밋...
                   myform.submit();
               }
-
             //   e.preventDefault();  //form이 서버로 전달되는 것을 막아준다.
           }
       </script>
 </div>
-
-

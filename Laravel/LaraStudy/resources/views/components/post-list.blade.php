@@ -14,7 +14,6 @@
               <td>{{ $post->user->name }}</td>
               <td>{{ $post->updated_at->diffForHumans() }}</td>
           </tr>
-
           @endforeach
         </tbody>
       </table>
