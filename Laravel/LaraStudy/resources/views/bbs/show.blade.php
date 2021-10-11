@@ -9,5 +9,5 @@
         </button>
     </div>
     </x-slot>
-s    <x-post-show :post="$post"></x-post-show>
+   <x-post-show :post="$post"></x-post-show>
 </x-app-layout>
