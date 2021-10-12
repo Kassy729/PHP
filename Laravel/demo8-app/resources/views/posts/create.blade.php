@@ -9,6 +9,7 @@
           enctype="multipart/form-data">
 
         @csrf
+
         <div class="mb-3">
             <label for="title" class="form-label">제목</label>
             <input type="title" class="form-control"
@@ -21,7 +22,7 @@
             name="content" rows="3"></textarea>
           </div>
           <div class="input-group mb-3">
-            <input type="file" class="form-control" id="inputGroupFile02">
+            <input name="image" type="file" class="form-control" id="inputGroupFile02">
             <label class="input-group-text" for="inputGroupFile02">Upload</label>
           </div>
           <button class="btn btn-primary">작성</button>

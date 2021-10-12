@@ -24,6 +24,12 @@
                     </x-nav-link>
                 </div>
 
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('post.index')" :active="request()->routeIs('index')">
+                        {{ __('목록보기') }}
+                    </x-nav-link>
+                </div>
+
 
             </div>
 

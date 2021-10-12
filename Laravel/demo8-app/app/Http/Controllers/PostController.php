@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -15,7 +16,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index');
+        $posts = Post::latest()->paginate(5);
+
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -40,7 +43,7 @@ class PostController extends Controller
             $request,
             [
                 'title' => 'required',
-                'content' => 'required|min:2'
+                'content' => 'required|min:3'
             ]
         );
 
@@ -50,14 +53,20 @@ class PostController extends Controller
         );
 
         $fileName = null;
+
         if ($request->hasFile('image')) {
             $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
-            $request->file('imgae')->storeAs('public/images', $fileName);
-        }
+            $request->file('image')->storeAs('public/images', $fileName);
+        };
 
         if ($fileName) {
             $input = array_merge($input, ['image' => $fileName]);
+            // dd($input);
         }
+
+        Post::create($input);
+
+        return redirect()->route('post.index');
     }
 
     /**
@@ -68,7 +77,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id);
+
+        return view('posts.show', ['post' => $post]);
     }
 
     /**
@@ -79,7 +90,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -91,7 +103,24 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($id);
+
+        $title = $request->title;
+        $content = $request->content;
+
+        $post->title = $title;
+        $post->content = $content;
+
+        $fileName = null;
+        if ($request->hasFile('image')) {
+            if ($post->image) {
+                Storage::delete('public/images' . '_' . $post->image);
+            }
+            $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
+            $post->image = $fileName;
+            $request->image->storeAs('public/images' . '_' . $fileName);
+        }
+        $post->save();
     }
 
     /**
