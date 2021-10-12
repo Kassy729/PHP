@@ -118,9 +118,11 @@ class PostController extends Controller
             }
             $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
             $post->image = $fileName;
-            $request->image->storeAs('public/images' . '_' . $fileName);
+            $request->image->storeAs('public/images', $fileName);
         }
         $post->save();
+
+        return redirect()->route('post.show', ['post' => $post->id]);
     }
 
     /**
