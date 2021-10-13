@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        Index
+        {{ __('목록보기') }}
     </x-slot>
     <x-post-list :posts="$posts"/>
     {{ $posts->links() }}

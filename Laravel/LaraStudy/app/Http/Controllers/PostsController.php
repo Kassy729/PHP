@@ -177,7 +177,6 @@ class PostsController extends Controller
             Storage::delete('public/images/' . $post->image);
         }
 
-
         $post->delete();
         return redirect()->route('posts.index');
     }

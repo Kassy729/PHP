@@ -76,7 +76,7 @@ class PostController extends Controller
     {
         $page = $request->page;
         $post = Post::with('likes')->find($id);
-        return view('posts.show', compact('post', 'page'));
+        return view('posts.show', ['post' => $post, 'page' => $page]);
     }
 
     /**

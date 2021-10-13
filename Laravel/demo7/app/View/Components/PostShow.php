@@ -12,10 +12,12 @@ class PostShow extends Component
      * @return void
      */
     public $post;
+    public $page;
 
-    public function __construct($post)
+    public function __construct($post, $page)
     {
         $this->post = $post;
+        $this->page = $page;
     }
 
     /**

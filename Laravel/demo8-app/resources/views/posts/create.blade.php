@@ -14,17 +14,31 @@
             <label for="title" class="form-label">제목</label>
             <input type="title" class="form-control"
             name="title"
+            value="{{ old('title') }}"
             placeholder="제목">
-          </div>
-          <div class="mb-3">
+            @error('title')
+                <div class="text-red-500">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
             <label for="content" class="form-label"></label>내용</label>
             <textarea class="form-control"
-            name="content" rows="3"></textarea>
-          </div>
-          <div class="input-group mb-3">
+            name="content" rows="3">{{ old('content') }}</textarea>
+            @error('content')
+                <div class="text-red-500">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+        <div class="input-group mb-3">
             <input name="image" type="file" class="form-control" id="inputGroupFile02">
             <label class="input-group-text" for="inputGroupFile02">Upload</label>
-          </div>
+        </div>
+
           <button class="btn btn-primary">작성</button>
     </form>
 </x-app-layout>

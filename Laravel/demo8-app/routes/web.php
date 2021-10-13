@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LikesController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,8 @@ Route::get('/', function () {
 });
 
 Route::resource('/post', PostController::class)->middleware(['auth']);
+
+Route::post('/like/{post}', [LikesController::class, 'store'])->middleware(['auth'])->name('like.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

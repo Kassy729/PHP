@@ -13,6 +13,8 @@
         <div class="card-body">
           <h5 class="card-title">{{ $post->title }}</h5>
           <p class="card-text">{{ $post->content }}</p>
+          <like-button :post="{{ $post }}"
+            :loginuser="{{ auth()->user()->id }}"/>
           <p class="card-text"><small class="text-muted">{{ $post->created_at->diffForHumans() }}</small></p>
           <p class="card-text"><small class="text-muted">{{ $post->updated_at->diffForHumans() }}</small></p>
           <p class="card-text"><small class="text-muted">{{ $post->user->name }}</small></p>
@@ -21,7 +23,11 @@
     </div>
     <div class="card-body flex">
         <button onclick="location.href='{{ route('post.edit', ['post' => $post->id]) }}'" class="btn btn-warning">수정</button>
-        <button class="btn btn-danger">삭제</button>
+        <form action="{{ route('post.destroy', ['post' => $post, 'page' => $page]) }}"
+              method="POST">
+            @method('delete')
+            @csrf
+            <button class="btn btn-danger">삭제</button>
+        </form>
     </div>
-
   </div>

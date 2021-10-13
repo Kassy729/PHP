@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class PostController extends Controller
 {
@@ -75,11 +76,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        $page = $request->page;
         $post = Post::find($id);
 
-        return view('posts.show', ['post' => $post]);
+        return view('posts.show', ['post' => $post, 'page' => $page]);
     }
 
     /**
@@ -103,6 +105,14 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate(
+            $request,
+            [
+                'title' => 'required',
+                'content' => 'required|min:3'
+            ]
+        );
+
         $post = Post::find($id);
 
         $title = $request->title;
@@ -131,8 +141,16 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $page = $request->page;
+        $post = Post::find($id);
+
+        if ($post->image) {
+            Storage::delete('public/images/' . $post->image);
+        }
+
+        $post->delete();
+        return redirect()->route('post.index', ['page' => $page]);
     }
 }

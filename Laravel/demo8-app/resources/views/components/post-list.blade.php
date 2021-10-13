@@ -3,7 +3,7 @@
 
     <ul class="list-group">
         @foreach ($posts as $post)
-            <a href="{{ route('post.show', ['post' => $post->id]) }}"><li class="list-group-item">{{ $post->title }}</li></a>
+            <a href="{{ route('post.show', ['post' => $post->id, 'page' => $posts->currentPage()]) }}"><li class="list-group-item">{{ $post->title }}</li></a>
         @endforeach
       </ul>
 </div>
