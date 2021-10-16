@@ -41,13 +41,32 @@
 export default {
     data() {
         return {
-            like: false
+            like: false,
+            userIdArray: []
         };
     },
+    props: ["post", "loginuser"],
     methods: {
         likeCliked() {
-            this.like = !this.like;
+            axios
+                .post(`/like/${this.post.id}`)
+                .then(res => {
+                    console.log(res);
+                    this.like = !this.like;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
+        checkLikes() {
+            this.like = this.userIdArray.includes(this.loginuser);
         }
+    },
+    created() {
+        this.userIdArray = this.post.likes.map(elem => {
+            return elem.id;
+        });
+        this.checkLikes();
     }
 };
 </script>

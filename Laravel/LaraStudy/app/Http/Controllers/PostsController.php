@@ -85,7 +85,7 @@ class PostsController extends Controller
         // Eloquent model의 white list 인 $fillable에 기술해야 한다.
         Post::create($input);
 
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with('success', 1);
     }
 
     /**

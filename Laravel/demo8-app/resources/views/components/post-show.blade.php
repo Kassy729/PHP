@@ -11,13 +11,15 @@
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title">{{ $post->title }}</h5>
-          <p class="card-text">{{ $post->content }}</p>
-          <like-button :post="{{ $post }}"
-            :loginuser="{{ auth()->user()->id }}"/>
-          <p class="card-text"><small class="text-muted">{{ $post->created_at->diffForHumans() }}</small></p>
-          <p class="card-text"><small class="text-muted">{{ $post->updated_at->diffForHumans() }}</small></p>
-          <p class="card-text"><small class="text-muted">{{ $post->user->name }}</small></p>
+          <h5 class="card-title">제목 : {{ $post->title }}</h5>
+          <p class="card-text">내용 : {{ $post->content }}</p>
+          <div>
+            <like-button :post="{{ $post }}" :loginuser="{{ auth()->user()->id }}"/>
+          </div>
+          <p class="card-text"><small class="text-muted">작성일 : {{ $post->created_at->diffForHumans() }}</small></p>
+          <p class="card-text"><small class="text-muted">업데이트일 : {{ $post->updated_at->diffForHumans() }}</small></p>
+          <p class="card-text"><small class="text-muted">작성자 : {{ $post->user->name }}</small></p>
+          <p class="card-text"><small class="text-muted">좋아요 : {{ $post->likes->count() }} 개</small></p>
         </div>
       </div>
     </div>
@@ -30,4 +32,7 @@
             <button class="btn btn-danger">삭제</button>
         </form>
     </div>
+  </div>
+  <div>
+      <comment-list :post="{{ $post }}" :loginuser="{{ auth()->user()->id }}"/>
   </div>

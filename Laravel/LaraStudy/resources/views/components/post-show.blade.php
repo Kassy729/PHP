@@ -1,7 +1,7 @@
-<div>
-    <div class="card" style="width: 18rem;">
+
+    <div class="card" >
         @if ($post->image)
-        <img src="{{ '/storage/images/'.$post->image }}" class="card-img-top" alt="my post image">
+        <img src="{{ '/storage/images/'.$post->image }}" style="width: 18rem;" class="card-img-top" alt="my post image">
         @else
             <span>첨부 이미지 없음</span>
         @endif
@@ -28,6 +28,10 @@
             </form>
         </div>
       </div>
+      <div>
+        <comment-list :post="{{ $post }}"
+            :loginuser="{{ auth()->user()->id }}"/>
+    </div>
 
       <script type="application/javascript">
           function confirmDelete(e){

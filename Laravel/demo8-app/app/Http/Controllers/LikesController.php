@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 
 class LikesController extends Controller
 {
-    public function store(Post $post)
+    public function store($post)
     {
+        $post = Post::find($post);
         return $post->likes()->toggle(auth()->user());
     }
 }
