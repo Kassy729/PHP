@@ -15,7 +15,7 @@
                 @foreach ($posts as $post)
                 <tr>
                 <th scope="row">1</th>
-                <td>{{ $post->title }}</td>
+                <td><a href="{{ route('post.show', ['post' => $post->id, 'page' => $posts->currentPage()]) }}">{{ $post->title }}</a></td>
                 <td>{{ $post->user->name }}</td>
                 <td>좋아요</td>
                 <td>{{ $post->created_at }}</td>
@@ -23,4 +23,5 @@
             </tbody>
             @endforeach
         </table>
+        {{ $posts->links() }}
 </div>

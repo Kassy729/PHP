@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -69,9 +71,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $page = $request->page;
+        $post = Post::find($id);
+        return view('posts.show', ['post' => $post, 'page' => $page]);
     }
 
     /**
@@ -82,7 +86,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -94,7 +99,34 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(
+            $request,
+            [
+                'title' => 'required',
+                'content' => 'required|min:3'
+            ]
+        );
+
+        $title = $request->title;
+        $content = $request->content;
+
+        $post = Post::find($id);
+
+        $post->title = $title;
+        $post->content = $content;
+
+        $fileName = null;
+        if ($request->hasFile('image')) {
+            if ($post->image) {
+                Storage::delete('public/images/' . $post->image);
+            }
+            $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->storeAs('public/images/', $fileName);
+            $post->image = $fileName;
+        }
+        $post->save();
+
+        return redirect()->route('post.show', ['post' => $post->id]);
     }
 
     /**
@@ -103,8 +135,16 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $page = $request->page;
+        $post = Post::find($id);
+        $post->delete();
+
+        if ($post->image) {
+            Storage::delete('public/images/' . $post->image);
+        }
+
+        return redirect()->route('post.index', ['page' => $page]);
     }
 }

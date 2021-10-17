@@ -167,7 +167,7 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
         //DI, Dependency Injection, 의존성 주입
         $post = Post::find($id);
