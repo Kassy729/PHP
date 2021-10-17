@@ -23,15 +23,19 @@
         </div>
       </div>
     </div>
-    <div class="card-body flex">
-        <button onclick="location.href='{{ route('post.edit', ['post' => $post->id]) }}'" class="btn btn-warning">수정</button>
-        <form action="{{ route('post.destroy', ['post' => $post, 'page' => $page]) }}"
-              method="POST">
-            @method('delete')
-            @csrf
-            <button class="btn btn-danger">삭제</button>
-        </form>
-    </div>
+        @auth
+        @if (auth()->user()->id == $post->user_id)
+        <div class="card-body flex">
+            <button onclick="location.href='{{ route('post.edit', ['post' => $post->id]) }}'" class="btn btn-warning">수정</button>
+            <form action="{{ route('post.destroy', ['post' => $post, 'page' => $page]) }}"
+                method="POST">
+                @method('delete')
+                @csrf
+                <button class="btn btn-danger">삭제</button>
+            </form>
+        </div>
+        @endif
+    @endauth
   </div>
   <div>
       <comment-list :post="{{ $post }}" :loginuser="{{ auth()->user()->id }}"/>

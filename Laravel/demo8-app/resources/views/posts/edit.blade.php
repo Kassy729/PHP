@@ -22,7 +22,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">제목</label>
-                <input type="text" name="title" class="form-control" id="exampleFormControlInput1" value="{{ $post->title }}">
+                <input type="text" name="title" class="form-control" id="exampleFormControlInput1" value="{{ old('title') ? old('title') : $post->title }}">
                 @error('title')
                     <div class="text-red-500">
                         {{ $message }}
@@ -31,7 +31,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-                <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="3">{{ $post->content }}</textarea>
+                <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="3">{{ old('title') ? old('title') : $post->content }}</textarea>
                 @error('content')
                     <div class="text-red-500">
                         {{ $message }}

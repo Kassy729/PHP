@@ -121,6 +121,10 @@ class PostController extends Controller
         $post->title = $title;
         $post->content = $content;
 
+        if ($request->user()->cannot('update', $post)) {
+            abort(403);
+        }
+
         $fileName = null;
         if ($request->hasFile('image')) {
             if ($post->image) {
@@ -130,6 +134,8 @@ class PostController extends Controller
             $post->image = $fileName;
             $request->image->storeAs('public/images', $fileName);
         }
+
+
         $post->save();
 
         return redirect()->route('post.show', ['post' => $post->id]);
