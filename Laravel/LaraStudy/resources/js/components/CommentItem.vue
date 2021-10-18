@@ -73,7 +73,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- New Comment Paste Here -->
             </div>
         </div>

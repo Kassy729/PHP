@@ -16,6 +16,7 @@
           <p class="card-text"><small class="text-muted">{{ $post->user->name }}</small></p>
           <p class="card-text"><small class="text-muted">{{ $post->created_at->diffForHumans() }}</small></p>
           <p class="card-text"><small class="text-muted">{{ $post->updated_at }}</small></p>
+          <like-button :post = "{{ $post }}" :loginuser = "{{ auth()->user()->id }}"/>
         </div>
       </div>
     </div>
