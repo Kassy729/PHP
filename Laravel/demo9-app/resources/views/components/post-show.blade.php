@@ -29,4 +29,11 @@
             <button class="btn btn-danger" type="submit">삭제</button>
         </form>
     </div>
+    <div>
+        <comment-list :post='{{ $post }}'
+        :loginuser="{{ auth()->user()->id }}"/>
+    </div>
+    <div>
+        <comment-create :post='{{ $post }}'/>
+    </div>
   </div>
