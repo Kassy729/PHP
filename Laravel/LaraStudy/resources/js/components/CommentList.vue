@@ -9,18 +9,15 @@
             :key="index"
             :comment="comment"
         />
-        <comment-create />
     </div>
 </template>
 
 <script>
 import CommentItem from "./CommentItem.vue";
-// import CommentCreate from "./CommentCreate.vue";
 
 export default {
     components: {
-        CommentItem,
-        CommentCreate
+        CommentItem
     },
     props: ["post", "loginuser"],
     data() {

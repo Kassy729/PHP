@@ -8,10 +8,24 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, $post_id)
     {
-        return $request;
-        dd($request);
+        // $comment = new Comment;
+        // $comment->user_id = auth()->user()->id;
+        // $comment->post_id = $post_id;
+        // $comment->comment = $request->comment;
+
+        // $comment->save();
+
+        Comment::create([
+            'comment' => $request->comment,
+            'user_id' => auth()->user()->id,
+            'post_id' => $post_id
+        ]);
+
+        Comment::create($request->all());
+
+        return 'success';
     }
 
     public function index_test(Post $post)
@@ -31,5 +45,17 @@ class CommentController extends Controller
             select * from comments where post_id = ?
         */
         $comment = Comment::where('post_id', $postId)->latest();
+    }
+
+    public function update(Request $request, $comment_id)
+    {
+        $comment = $request->comment;
+        $post = Comment::find($comment_id);
+        /*
+            select * from comments where id = ? *
+        */
+
+        $post->comment = $comment;
+        $post->save();
     }
 }

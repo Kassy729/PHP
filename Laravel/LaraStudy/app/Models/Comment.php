@@ -7,6 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+    protected $fillable = [
+        'comment',
+        'post_id',
+        'user_id'
+    ];
+
+    // protected $guarded = [
+    //     'user_id', 'post_id'
+    // ];  //디비에 못들어가게끔 막음
+
     use HasFactory;
 
     public function user()

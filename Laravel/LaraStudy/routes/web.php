@@ -23,7 +23,11 @@ Route::delete('/posts/images/{id}', [PostsController::class, "deleteImage"])->mi
 
 Route::post('/like/{post}', [LikesController::class, 'store'])->middleware(['auth'])->name('like.store');
 
-Route::post('/commentStore', [CommentController::class, 'store'])->middleware(['auth']);
+Route::post('/comments/{post_id}', [CommentController::class, 'store'])->middleware(['auth']);
+
+Route::get('/comments/{post_id}', [CommentController::class, 'index'])->middleware(['auth'])->name('comment.index');
+
+Route::patch('/comments/{comment_id}', [CommentController::class, 'update'])->name('comments.update');
 
 Route::get('/', function () {
     return view('dashboard');
