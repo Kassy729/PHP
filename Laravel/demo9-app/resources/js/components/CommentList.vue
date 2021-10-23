@@ -24,7 +24,15 @@ export default {
     },
     methods: {
         getComment() {
-            this.comments = ["1번째", "2번째", "3번째"];
+            console.log("test");
+            axios
+                .get(`/comments/${this.post.id}`)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     }
 };

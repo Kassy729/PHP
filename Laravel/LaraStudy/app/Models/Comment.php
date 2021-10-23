@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     protected $fillable = [
-        'comment',
-        'post_id',
-        'user_id'
+        "comment",
+        "post_id",
+        "user_id"
     ];
 
     // protected $guarded = [

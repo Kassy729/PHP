@@ -23,7 +23,7 @@ class CommentController extends Controller
             'post_id' => $post_id
         ]);
 
-        Comment::create($request->all());
+        // Comment::create($request->all());
 
         return 'success';
     }

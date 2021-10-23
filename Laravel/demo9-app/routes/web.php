@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikesController;
 use App\Http\Controllers\PostController;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,4 +29,8 @@ require __DIR__ . '/auth.php';
 
 Route::resource('/post', PostController::class);
 
+Route::post('/like/{post_id}', [LikesController::class, 'store'])->middleware(['auth']);
+
 Route::post('/commentStore/{id}', [CommentController::class, "store"])->middleware(['auth']);
+
+Route::get('comments/{post_id}', [CommentController::class, "index"])->middleware(['auth'])->name('comment.index');

@@ -41,7 +41,8 @@
 export default {
     data() {
         return {
-            like: false
+            like: false,
+            userIdArray: []
         };
     },
     props: ["post", "loginuser"],
@@ -56,7 +57,16 @@ export default {
                 .catch(err => {
                     console.log(err);
                 });
+        },
+        checkLikes() {
+            this.like = this.userIdArray.includes(this.loginuser);
         }
+    },
+    created() {
+        this.userIdArray = this.post.likes.map(likes => {
+            return likes.id;
+        });
+        this.checkLikes();
     }
 };
 </script>
