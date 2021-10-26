@@ -26,6 +26,7 @@
                         {{ __('목록보기') }}
                     </x-nav-link>
                 </div>
+
             </div>
 
             <!-- Settings Dropdown -->

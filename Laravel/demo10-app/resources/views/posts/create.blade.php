@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('작성') }}
+            {{ __('글수정 폼') }}
         </h2>
     </x-slot>
     <div class="m-4 p-4">  <!--margin, padding-->

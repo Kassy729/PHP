@@ -4,4 +4,5 @@
             {{ __('목록보기') }}
         </h2>
     </x-slot>
+    <x-post-list :posts="$posts" />
 </x-app-layout>
