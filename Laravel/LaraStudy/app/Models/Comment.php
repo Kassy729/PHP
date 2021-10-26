@@ -17,7 +17,7 @@ class Comment extends Model
     //     'user_id', 'post_id'
     // ];  //디비에 못들어가게끔 막음
 
-    use HasFactory;
+    use HasFactory;  //trait
 
     public function user()
     {

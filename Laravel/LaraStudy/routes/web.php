@@ -29,6 +29,8 @@ Route::get('/comments/{post_id}', [CommentController::class, 'index'])->middlewa
 
 Route::patch('/comments/{comment_id}', [CommentController::class, 'update'])->name('comments.update');
 
+Route::delete('/comments/{post_id}', [CommentController::class, 'destroy']);
+
 Route::get('/', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

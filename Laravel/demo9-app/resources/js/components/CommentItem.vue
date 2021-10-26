@@ -19,11 +19,13 @@
                                             href="#"
                                             class="hover:underline text-sm"
                                         >
-                                            <small>Ganendra</small>
+                                            <small>{{
+                                                comment.user.name
+                                            }}</small>
                                         </a>
                                     </div>
                                     <div class="text-xs">
-                                        {{ comment }}
+                                        {{ comment.content }}
                                     </div>
                                 </div>
                                 <div
@@ -58,16 +60,11 @@
                                     class="font-semibold text-gray-700 px-2 flex items-center justify-center space-x-1"
                                 >
                                     <a href="#" class="hover:underline">
-                                        <small>Like</small>
+                                        <small>수정</small>
                                     </a>
                                     <small class="self-center">.</small>
-                                    <a href="#" class="hover:underline">
-                                        <small>Reply</small>
-                                    </a>
+                                    <small @click="onClickDelete">삭제</small>
                                     <small class="self-center">.</small>
-                                    <a href="#" class="hover:underline">
-                                        <small>15 hour</small>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -81,6 +78,20 @@
 
 <script>
 export default {
-    props: ["comment"]
+    props: ["comment"],
+    methods: {
+        onClickDelete() {
+            console.log("test");
+            axios
+                .delete(`/comments/${this.comment.id}`)
+                .then(res => {
+                    console.log(res);
+                    getComment();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    }
 };
 </script>
