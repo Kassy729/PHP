@@ -1,6 +1,6 @@
 <template>
     <!-- component -->
-    <div x-data="{ open1: false, open2: false }">
+    <div x-data="{ open1: false, open2: false }" class="my-5">
         <div class="bg-gray-100 flex justify-center items-center">
             <div
                 class="bg-white w-full sm:max-w-7xl md:w-1/3 h-auto shadow px-3 py-2 flex flex-col space-y-2"
@@ -19,11 +19,13 @@
                                             href="#"
                                             class="hover:underline text-sm"
                                         >
-                                            <small>Ganendra</small>
+                                            <small>{{
+                                                comment.user.name
+                                            }}</small>
                                         </a>
                                     </div>
                                     <div class="text-xs">
-                                        {{ comment }}
+                                        {{ comment.comment }}
                                     </div>
                                 </div>
                                 <div

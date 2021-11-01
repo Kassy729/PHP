@@ -28,7 +28,7 @@
         @endauth
       </div>
       <div>
-        <comment-index :post="{{ $post }}"/>
+        <comment-index :post="{{ $post }}" :loginuser="{{ auth()->user()->id }}"/>
       </div>
       <div>
         <comment-create :post="{{ $post }}"/>

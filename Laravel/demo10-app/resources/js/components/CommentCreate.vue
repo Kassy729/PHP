@@ -28,6 +28,8 @@ export default {
                 .post("/comment/" + this.post.id, form)
                 .then((res) => {
                     console.log(res.data);
+                    location.reload();
+                    //페이지 새로고침
                 })
                 .catch((err) => {
                     console.log(err);

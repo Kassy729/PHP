@@ -16,7 +16,16 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(5);
+        // $posts = Post::latest()->paginate(5);
+
+        // return view('posts.index', ['posts' => $posts]);
+
+        $id = Auth::user()->id;
+
+        $posts = Post::where('user_id', "=", $id)->latest()->paginate(5);
+
+
+        // dd($posts);
 
         return view('posts.index', ['posts' => $posts]);
     }
@@ -147,5 +156,17 @@ class PostsController extends Controller
         $post->delete();
 
         return redirect()->route('posts.index');
+    }
+
+    public function myindex()
+    {
+        $id = Auth::user()->id;
+
+        $posts = Post::where('user_id', "=", $id)->latest()->paginate(5);
+
+
+        // dd($posts);
+
+        return view('posts.myindex', ['posts' => $posts]);
     }
 }

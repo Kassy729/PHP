@@ -45,20 +45,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Post::class);  //외래키를 적어야 하지만 관례를 따라서 생략 가능
     }
 
-    public function viewed_posts(){
+    public function viewed_posts()
+    {
         // return $this->belongsToMany(Post::class);
         return $this->belongsToMany(Post::class, 'post_user', 'user_id', 'post_id', 'id', 'id', 'posts');  //users는 본인이라 사용하지않음
     }
 
-    public function like_posts(){
+    public function like_posts()
+    {
         return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id', 'id', 'id', 'posts');
     }
 
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
 

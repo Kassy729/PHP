@@ -23,6 +23,8 @@ Route::resource('/post', PostController::class)->middleware(['auth']);
 
 Route::post('/like/{post}', [LikesController::class, 'store'])->middleware(['auth'])->name('like.store');
 
+Route::get('/post/myindex', [PostController::class, 'myindex'])->middleware(['auth'])->name('posts.myindex');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

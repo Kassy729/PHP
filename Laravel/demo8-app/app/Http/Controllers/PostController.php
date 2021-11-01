@@ -22,6 +22,17 @@ class PostController extends Controller
         return view('posts.index', ['posts' => $posts]);
     }
 
+    public function myindex()
+    {
+        $id = Auth::user()->id;
+
+        $posts = Post::where('user_id', $id)->latest()->paginate(5);
+
+        // dd($posts);
+
+        return view('posts.myindex', ['posts' => $posts]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

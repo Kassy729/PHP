@@ -22,13 +22,15 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('/posts/create', [PostController::class, 'create'])->name('create');
 
 Route::post('/posts/store', [PostController::class, 'store'])->name('store');
 
 Route::get('/posts/index', [PostController::class, 'index'])->name('index');
+
+Route::get('/posts/myindex', [PostController::class, 'myindex'])->name('myindex');
 
 Route::get('/posts/show/{id}', [PostController::class, 'show'])->name('show');
 

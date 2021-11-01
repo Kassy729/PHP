@@ -27,13 +27,13 @@ class Post extends Model
         // 함수를 정의할 때 이름을 테이블 이름을 따오면 따로 외래키를 줄 필요가 없다.
     }
 
-    public function likes()
-    {
-        return $this->belongsToMany(User::class);
-    }
-
     public function comment()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany(User::class);
     }
 }

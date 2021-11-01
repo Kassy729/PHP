@@ -30,6 +30,7 @@ export default {
                 .post("/comments/" + this.post.id, form)
                 .then(res => {
                     console.log(res);
+                    location.reload();
                 })
                 .catch(err => {
                     console.log(err);

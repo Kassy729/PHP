@@ -46,8 +46,9 @@ class CommentController extends Controller
         /*
             select * from comments where post_id = ?
         */
-        $comment = Comment::where('post_id', $postId)->latest();
-        return $comment;
+        // $comment = Comment::where('post_id', $postId)->latest();
+        $comments = Comment::where('post_id', $postId)->with('user')->get();
+        return $comments;
     }
 
     public function update(Request $request, $comment_id)
