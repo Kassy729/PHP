@@ -32,9 +32,9 @@
         <comment-list :post="{{ $post }}"
             :loginuser="{{ auth()->user()->id }}"/>
       </div>
-      <div>
+      {{-- <div>
         <comment-create :post="{{ $post }}"/>
-      </div>
+      </div> --}}
     </div>
 
       <script type="application/javascript">

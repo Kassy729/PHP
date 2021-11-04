@@ -47,7 +47,7 @@ class CommentController extends Controller
             select * from comments where post_id = ?
         */
         // $comment = Comment::where('post_id', $postId)->latest();
-        $comments = Comment::where('post_id', $postId)->with('user')->get();
+        $comments = Comment::with('user')->where('post_id', $postId)->latest()->paginate(3);
         return $comments;
     }
 

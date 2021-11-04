@@ -26,11 +26,6 @@
                         {{ __('목록보기') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('posts.myindex')" :active="request()->routeIs('posts.myindex')">
-                        {{ __('내 목록보기') }}
-                    </x-nav-link>
-                </div>
 
             </div>
 

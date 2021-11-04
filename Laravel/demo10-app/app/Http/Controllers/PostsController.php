@@ -20,9 +20,7 @@ class PostsController extends Controller
 
         // return view('posts.index', ['posts' => $posts]);
 
-        $id = Auth::user()->id;
-
-        $posts = Post::where('user_id', "=", $id)->latest()->paginate(5);
+        $posts = Post::latest()->paginate(5);
 
 
         // dd($posts);

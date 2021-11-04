@@ -25,8 +25,6 @@ Route::get('/dashboard', function () {
 
 Route::resource('/posts', PostsController::class)->middleware(['auth']);
 
-Route::get('/posts/myindex', [PostsController::class, 'myindex'])->middleware(['auth'])->name('posts.myindex');
-
 Route::post('/comment/{post_id}', [CommentsController::class, 'store'])->middleware(['auth']);
 
 Route::get('/comment/{post_id}', [CommentsController::class, 'index'])->middleware(['auth']);
