@@ -59,16 +59,20 @@
                                 <div
                                     class="font-semibold text-gray-700 px-2 flex items-center justify-center space-x-1"
                                 >
-                                    <button class="btn btn-warning">
+                                    <!-- <button class="btn btn-warning">
                                         수정
                                     </button>
                                     <button class="btn btn-danger">
                                         삭제
-                                    </button>
-                                    <!-- <small class="self-center">.</small>
+                                    </button> -->
+                                    <small class="self-center">.</small>
                                     <a href="#" class="hover:underline">
-                                        <small>15 hour</small>
-                                    </a> -->
+                                        <small>Update</small>
+                                    </a>
+                                    <small class="self-center">.</small>
+                                    <a href="#" class="hover:underline">
+                                        <small>Delete</small>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -81,9 +85,7 @@
 </template>
 
 <script>
-import Button from "../../../vendor/laravel/breeze/stubs/inertia-vue/resources/js/Components/Button.vue";
 export default {
-    components: { Button },
     props: ["comment"]
 };
 </script>

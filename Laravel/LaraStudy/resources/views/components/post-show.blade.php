@@ -19,13 +19,18 @@
           <li class="list-group-item">작성자 : {{ $post->user->name }}</li>
         </ul>
         <div class="card-body flex">
+            @can('update', $post)
             <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-warning">수정하기</a>
+            @endcan
+
+            @can('delete', $post)
             <form id="form" class="ml-4" method="post" onsubmit="event.preventDefault(); confirmDelete()">
                 @csrf
                 @method('delete')
                 {{-- <input type="hidden" name="_method" value="delete"> --}}
                 <button class="btn btn-danger" type="submit">삭제하기</button>
             </form>
+            @endcan
         </div>
       </div>
       <div>

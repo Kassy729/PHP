@@ -110,8 +110,19 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
+        //의존성 주입
+        //DI(Depency Injection)
+
         //$id에 해당하는 포스트를 수정할 수 있는
         //페이지를 반환해주면 된다.
+
+        // $post = Post::find($id);
+        // if ($request->user()->cannot('update', $post)) {
+        //     abort(403);
+        // }  한줄로도 가능 이건 모델을 이용해서 한거
+
+        $this->authorize('update', $id);  //권한부여
+
         return view('bbs.edit', ['post' => Post::find($id)]);
     }
 
@@ -133,6 +144,8 @@ class PostsController extends Controller
         );
 
         $post = Post::find($id);
+
+        $this->authorize('update', $post);
         // $post->title = $request->input['title'];  같은 기능
         $post->title = $request->title;
         $post->content = $request->content;
@@ -172,6 +185,12 @@ class PostsController extends Controller
         //DI, Dependency Injection, 의존성 주입
         $post = Post::find($id);
 
+        $this->authorize('delete', $post);
+
+        // if ($request->user()->cannot('update', $post)) {
+        //     abort(403);
+        // }
+
         //게시글에 딸린 이미지가 있으면 파일시스템에서도 삭제해줘야 한다.
         if ($post->image) {
             Storage::delete('public/images/' . $post->image);
@@ -184,6 +203,9 @@ class PostsController extends Controller
     public function deleteImage($id)
     {
         $post = Post::find($id);
+
+        $this->authorize('delete', $post);
+
         Storage::delete(['public/images', '$post->image']);
         $post->image = null;
         $post->save();
