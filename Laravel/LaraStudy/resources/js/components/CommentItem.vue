@@ -66,11 +66,19 @@
                                         삭제
                                     </button> -->
                                     <small class="self-center">.</small>
-                                    <a href="#" class="hover:underline">
+                                    <a
+                                        href="#"
+                                        class="hover:underline"
+                                        v-if="comment.user_id == login_user_id"
+                                    >
                                         <small>Update</small>
                                     </a>
                                     <small class="self-center">.</small>
-                                    <a href="#" class="hover:underline">
+                                    <a
+                                        href="#"
+                                        class="hover:underline"
+                                        v-if="comment.user_id == login_user_id"
+                                    >
                                         <small>Delete</small>
                                     </a>
                                 </div>
@@ -86,6 +94,6 @@
 
 <script>
 export default {
-    props: ["comment"]
+    props: ["comment", "login_user_id"]
 };
 </script>
