@@ -10,6 +10,8 @@ window.Vue = require("vue").default;
 
 import Alpine from "alpinejs";
 
+import store from "./store/index";
+
 window.Alpine = Alpine;
 
 Alpine.start();
@@ -26,11 +28,6 @@ Alpine.start();
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component(
-    "example-component",
-    require("./components/ExampleComponent.vue").default
-);
-
-Vue.component(
     "comment-create",
     require("./components/CommentCreate.vue").default
 );
@@ -40,6 +37,8 @@ Vue.component(
     require("./components/CommentIndex.vue").default
 );
 
+Vue.component("login-form", require("./components/LoginForm.vue").default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -48,4 +47,5 @@ Vue.component(
 
 const app = new Vue({
     el: "#app",
+    store,
 });
