@@ -60,6 +60,8 @@ class CommentController extends Controller
             select * from comments where id = ? *
         */
 
+        $this->authorize('update', $comment);
+
         $comment::update(
             [
                 'comment' => $request->input('comment'),
@@ -69,7 +71,7 @@ class CommentController extends Controller
         return $comment;
     }
 
-    public function destroy($comment_id)
+    public function destroy(Request $request, $comment_id)
     {
         /*
             comments 테이블에서 id가 $commentId인 레코드를 삭제
@@ -79,8 +81,19 @@ class CommentController extends Controller
         */
         // delete from comments where id = ?
         $comment = Comment::find($comment_id);
-        $comment->delete();
 
-        return $comment;
+
+        // CommentPolicy를 적용한 권한관리를 하자.
+        // 즉 이 요청을 한 사용자가 이 댓글을 삭제할 수 있는지
+        // 체크하자.
+        $this->authorize('delete', $comment);
+        // if ($request->user()->cannot('delete', $comment)) {
+        //     $comment->delete();
+        //     return $comment;
+        // } else {
+        //     // 로그인한 사용자가 삭제 권한이 없는 경우
+        //     abort(403);
+        // }
+        return $comment->delete();
     }
 }

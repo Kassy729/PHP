@@ -26,6 +26,7 @@
             :key="index"
             :comment="comment"
             :login_user_id="loginuser"
+            @deleted="getComment"
         />
 
         <pagination
@@ -74,7 +75,7 @@ export default {
             axios
                 .get(url)
                 .then(res => {
-                    console.log(res);
+                    // console.log(res);
                     this.comments = res.data;
                 })
                 .catch(err => {
@@ -90,7 +91,7 @@ export default {
                 .get(`/comments/${this.post.id}`)
                 .then(res => {
                     this.comments = res.data;
-                    console.log(this.comments);
+                    // console.log(this.comments);
                 })
                 .catch(err => {
                     console.log(err);

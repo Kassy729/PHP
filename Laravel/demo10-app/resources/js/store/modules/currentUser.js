@@ -8,7 +8,7 @@ const getters = {};
 const actions = {
     loginUser({}, user) {
         axios
-            .post("/api/user/login", {
+            .post("", {
                 email: user.email,
                 password: user.password,
             })

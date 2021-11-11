@@ -10,7 +10,7 @@ window.Vue = require("vue").default;
 
 import Alpine from "alpinejs";
 
-import store from "./store/index";
+import store from "./store";
 
 window.Alpine = Alpine;
 

@@ -24,9 +24,21 @@
                                             }}</small>
                                         </a>
                                     </div>
-                                    <div class="text-xs">
-                                        {{ comment.comment }}
-                                    </div>
+                                    <input
+                                        class="text-xs"
+                                        v-model="newComment"
+                                        :readonly="!updateClicked"
+                                        type="text"
+                                        value=""
+                                        :id="'comment' + comment.id"
+                                    />
+                                    <small
+                                        v-show="updateClicked"
+                                        @click="updateComment"
+                                        v-if="comment.user_id == login_user_id"
+                                        class="px-2 hover:bg-blue-400"
+                                        >Save</small
+                                    >
                                 </div>
                                 <div
                                     class="self-stretch flex justify-center items-center transform transition-opacity duration-200 opacity-0 hover:opacity-100"
@@ -66,21 +78,21 @@
                                         삭제
                                     </button> -->
                                     <small class="self-center">.</small>
-                                    <a
-                                        href="#"
-                                        class="hover:underline"
+
+                                    <small
+                                        @click="enableUpdate"
                                         v-if="comment.user_id == login_user_id"
+                                        class="px-2 hover:bg-blue-400"
+                                        >Update</small
                                     >
-                                        <small>Update</small>
-                                    </a>
                                     <small class="self-center">.</small>
-                                    <a
-                                        href="#"
-                                        class="hover:underline"
+
+                                    <small
+                                        @click="onClickDelete"
+                                        class="px-2 hover:bg-blue-400"
                                         v-if="comment.user_id == login_user_id"
+                                        >Delete</small
                                     >
-                                        <small>Delete</small>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -94,6 +106,36 @@
 
 <script>
 export default {
-    props: ["comment", "login_user_id"]
+    props: ["comment", "login_user_id"],
+
+    data() {
+        return {
+            newComment: "",
+            updateClicked: false
+        };
+    },
+    created() {
+        this.newComment = this.comment.comment;
+    },
+    methods: {
+        onClickDelete() {
+            if (confirm("Are you sure to delete")) {
+                axios
+                    .delete("/comments/" + this.comment.id)
+                    .then(res => {
+                        // console.log(res.data);
+                        this.$emit("deleted");
+                        // this.$parent.getComment();
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+        },
+        enableUpdate() {
+            this.updateClicked = true;
+        },
+        updateComment() {}
+    }
 };
 </script>
