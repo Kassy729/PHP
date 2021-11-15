@@ -126,6 +126,7 @@ export default {
                         // console.log(res.data);
                         this.$emit("deleted");
                         // this.$parent.getComment();
+                        this.showSuccessMsg();
                     })
                     .catch(err => {
                         console.log(err);
@@ -135,7 +136,29 @@ export default {
         enableUpdate() {
             this.updateClicked = true;
         },
-        updateComment() {}
+        updateComment() {
+            axios
+                .patch("/comments/" + this.comment.id, {
+                    comment: this.newComment
+                })
+                .then(res => {
+                    this.updateClicked = false;
+                    this.showSuccessMsg();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
+
+        showSuccessMsg() {
+            Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "성공 했습니다.",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
     }
 };
 </script>

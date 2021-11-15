@@ -61,8 +61,12 @@ class CommentController extends Controller
         */
 
         $this->authorize('update', $comment);
+        // update set comment=? from comments where
+        // id = ?
+        // 첫번째 ? : $request -> input('comment')
+        // 두번째 ? : $comment -> id
 
-        $comment::update(
+        $comment->update(
             [
                 'comment' => $request->input('comment'),
             ]

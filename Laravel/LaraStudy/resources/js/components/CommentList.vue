@@ -22,8 +22,8 @@
         </button>
 
         <comment-item
-            v-for="(comment, index) in comments.data"
-            :key="index"
+            v-for="comment in comments.data"
+            :key="comment.id"
             :comment="comment"
             :login_user_id="loginuser"
             @deleted="getComment"
@@ -55,10 +55,6 @@ export default {
     },
     methods: {
         addComment() {
-            if (this.newComment == "") {
-                alert("댓글 써야해요!");
-                return;
-            }
             axios
                 .post(`/comments/${this.post.id}`, { comment: this.newComment })
                 .then(res => {
