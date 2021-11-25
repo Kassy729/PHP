@@ -16,7 +16,7 @@ class CreateCarsTable extends Migration
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
             $table->string('image');
-            $table->string('company');
+            // $table->string('company');
             $table->foreignId('company_id')
                 ->constrained()
                 ->onDelete('cascade');

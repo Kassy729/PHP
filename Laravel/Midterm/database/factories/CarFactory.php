@@ -14,13 +14,19 @@ class CarFactory extends Factory
      */
     public function definition()
     {
-        $c = new Company();
-        $c->name = 'Hyundai';
-        $c->save();
+        $c = null;
+        if (Company::all()->count() == 0) {
+            $c = new Company();
+            $c->name = 'Hyundai';
+            $c->save();
+        } else {
+            $c = Company::first();
+        }
+
 
         return [
             'image' => $this->faker->image('public/storage/images', 640, 480, null, false),
-            'name' => $this->faker->name,
+            'name' => $this->faker->name(),
             'company_id' => $c->id,
             'price' => 3000,
             'year' => 2021,
