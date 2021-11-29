@@ -65,11 +65,16 @@ class CarController extends Controller
             'style' => 'required'
         ]);
         // 2. 이미지를 파일 시스템의 특정 위치에 저장한다.
-
+        $path = $request->image->store('images', 'public');
         // 3. 요청정보에서 ($request) 필요한 데이터를
         //    꺼내가지고 DB에 저장한다.
+
+        $data = array_merge($data, ['image' => $path]);
         Car::create($data);
-        // 3.
+
+
+        // 4. redirect
+        return redirect()->route('cars.index');
     }
 
     /**
@@ -80,7 +85,8 @@ class CarController extends Controller
      */
     public function show(Car $car)
     {
-        //
+        // 상세보기 페이지
+        return view('components.cars.car-show', compact('car'));
     }
 
     /**
