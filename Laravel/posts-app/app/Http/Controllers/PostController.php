@@ -86,6 +86,7 @@ class PostController extends Controller
 
     public function search(Request $request)
     {
+        dd($request);
         $keyword = $request->keyword;
 
         // $posts = DB::table('posts')->select('title')->where('title', $keyword)->get();
