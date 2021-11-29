@@ -50,8 +50,8 @@ export default {
         likeCliked() {
             axios
                 .post(`/like/${this.post.id}`)
-                .then(res => {
-                    console.log(res);
+                .then(() => {
+                    // console.log(this.loginuser);
                     this.like = !this.like;
                 })
                 .catch(err => {
@@ -63,6 +63,7 @@ export default {
         }
     },
     created() {
+        console.log(this.post.likes);
         this.userIdArray = this.post.likes.map(elem => {
             return elem.id;
         });

@@ -75,7 +75,7 @@ class CommentController extends Controller
         return $comment;
     }
 
-    public function destroy(Request $request, $comment_id)
+    public function destroy($comment_id)
     {
         /*
             comments 테이블에서 id가 $commentId인 레코드를 삭제
