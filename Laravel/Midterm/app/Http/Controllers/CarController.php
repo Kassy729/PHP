@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Car;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
 {
@@ -68,6 +69,7 @@ class CarController extends Controller
         $path = $request->image->store('images', 'public');
         // 3. 요청정보에서 ($request) 필요한 데이터를
         //    꺼내가지고 DB에 저장한다.
+        dd($path);
 
         $data = array_merge($data, ['image' => $path]);
         Car::create($data);
@@ -97,7 +99,8 @@ class CarController extends Controller
      */
     public function edit(Car $car)
     {
-        //
+        $companies = Company::all();
+        return view('components.cars.car-edit', ['car' => $car, 'companies' => $companies]);
     }
 
     /**
@@ -109,7 +112,29 @@ class CarController extends Controller
      */
     public function update(Request $request, Car $car)
     {
-        //
+        $now = now();
+
+        $data = $request->validate([
+            'image' => 'image',
+            'name' => 'required',
+            'company_id' => 'required',
+            'year' => 'required|numeric|min:1800|max:' . ($now->year + 1),
+            'price' => 'required|numeric|min:1',
+            'type' => 'required',
+            'style' => 'required'
+        ]);
+
+
+        if ($request->image) {
+            Storage::delete('/pulbic/' . $car->image);
+            $path = $request->image->store('images', 'public');
+            $data = array_merge($data, ['image' => $path]);
+        }
+
+        $car->update($data);
+
+        // 4. redirect
+        return redirect()->route('cars.show', ['car' => $car]);
     }
 
     /**

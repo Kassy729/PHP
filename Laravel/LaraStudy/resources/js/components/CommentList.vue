@@ -58,6 +58,9 @@ export default {
             axios
                 .post(`/comments/${this.post.id}`, { comment: this.newComment })
                 .then(res => {
+                    console.log("test");
+                    console.log(this.comments.links);
+                    console.log(this.comments);
                     this.getComment();
                     this.newComment = "";
                 })
@@ -67,11 +70,9 @@ export default {
         },
 
         getPage(url) {
-            console.log(url);
             axios
                 .get(url)
                 .then(res => {
-                    // console.log(res);
                     this.comments = res.data;
                 })
                 .catch(err => {

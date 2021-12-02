@@ -20,8 +20,10 @@
           <li class="list-group-item">수정일 : {{ $car->updated_at->diffForHumans() }}</li>
           {{-- <li class="list-group-item">작성자 : {{ $car->user->name }}</li> --}}
         </ul>
-        <a href="{{ route('cars.index') }}" class="btn btn-primary">돌아가기</a>
       </div>
+      <a href="{{ route('cars.index') }}" class="btn btn-primary">돌아가기</a>
+        <a href="{{ route('cars.edit', ['car' => $car->id]) }}" class="btn btn-warning">수정</a>
+        <a href="{{ route('cars.destroy', ['car' => $car->id]) }}" class="btn btn-danger">삭제</a>
     </div>
 
       <script type="application/javascript">
