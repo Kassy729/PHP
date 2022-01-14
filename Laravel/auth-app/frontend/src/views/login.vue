@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -38,14 +40,16 @@ export default {
       password: "",
     };
   },
+
   methods: {
     login() {
-      this.$store
-        .dispatch("login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then(() => {
+      const form = new FormData();
+      form.append("email", this.email);
+      form.append("password", this.password);
+      axios
+        .post("http://localhost:8000/api/login", form)
+        .then((res) => {
+          console.log(res);
           this.$router.push("/");
         })
         .catch((err) => {

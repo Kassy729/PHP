@@ -7,21 +7,10 @@
 
 <script>
 import Nav from "./components/Nav.vue";
-import axios from "axios";
 
 export default {
   components: {
     Nav,
-  },
-
-  async created() {
-    const token = localStorage.getItem("access-token");
-    if (token) {
-      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-    } else return console.log("안된다");
-
-    const response = await axios.get("http://localhost:8000/api/user");
-    this.$store.dispatch("user", response.data);
   },
 };
 </script>

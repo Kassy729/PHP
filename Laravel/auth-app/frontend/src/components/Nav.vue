@@ -30,17 +30,10 @@
         </ul>
 
         <div class="text-end">
-          <router-link
-            to="/login"
-            class="btn btn-outline-light me-2"
-            v-if="this.user == null"
+          <router-link to="/login" class="btn btn-outline-light me-2"
             >Login</router-link
           >
-          <a
-            href="javascript:void(0)"
-            @click="handleClick"
-            v-else
-            class="btn btn-outline-light me-2"
+          <a href="javascript:void(0)" class="btn btn-outline-light me-2"
             >Logout</a
           >
 
@@ -54,31 +47,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   name: "Nav",
-  computed: {
-    ...mapGetters(["user"]),
-  },
-  methods: {
-    handleClick() {
-      localStorage.removeItem("access-token");
-      this.$router.push({ name: "Home" });
-    },
-    // getUser() {
-    //   if (this.$store.state.token) {
-    //     axios
-    //       .get("http://localhost:8000/api/user")
-    //       .then((res) => {
-    //         this.user = res.data;
-    //       })
-    //       .catch((err) => {
-    //         console.log(err);
-    //       });
-    //   }
-    //   return console.log("토큰이 없어서 못불러옵니다");
-    // },
-  },
+  methods: {},
 };
 </script>
