@@ -3,6 +3,7 @@
     <div>{{ user.name }}</div>
     <div>{{ user.email }}</div>
     <div>{{ message }}</div>
+    <div>{{ this.$store.state.authenticated }}</div>
   </div>
 </template>
 
@@ -23,9 +24,11 @@ export default {
       .get("http://localhost:8000/api/user")
       .then((res) => {
         this.user = res.data;
+        this.$store.dispatch("setAuth", true);
       })
       .catch(() => {
         this.message = "Your not logged in";
+        this.$store.dispatch("setAuth", false);
       });
   },
 };

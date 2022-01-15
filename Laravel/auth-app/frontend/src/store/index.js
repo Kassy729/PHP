@@ -7,9 +7,18 @@ const store = new Vuex.Store({
   state: {
     authenticated: false,
   },
+  mutations: {
+    setAuth(state, data) {
+      state.authenticated = data;
+    },
+  },
   getters: {},
-  mutations: {},
-  actions: {},
+
+  actions: {
+    setAuth({ commit }, auth) {
+      commit("setAuth", auth);
+    },
+  },
 });
 
 export default store;

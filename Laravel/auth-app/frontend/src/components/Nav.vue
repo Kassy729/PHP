@@ -30,12 +30,20 @@
         </ul>
 
         <div class="text-end">
-          <router-link to="/login" class="btn btn-outline-light me-2"
+          <router-link
+            to="/login"
+            class="btn btn-outline-light me-2"
+            v-if="!auth"
             >Login</router-link
           >
-          <a href="javascript:void(0)" class="btn btn-outline-light me-2"
-            >Logout</a
+          <button
+            v-else
+            to="/login"
+            class="btn btn-outline-light me-2"
+            @click="logout"
           >
+            Logout
+          </button>
 
           <router-link to="/register" class="btn btn-warning"
             >Sign-up</router-link
@@ -47,8 +55,29 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "Nav",
-  methods: {},
+  computed: {
+    auth() {
+      return this.$store.state.authenticated;
+    },
+  },
+  methods: {
+    logout() {
+      axios
+        .post("http://localhost:8000/api/logout")
+        .then((res) => {
+          this.$store.dispatch("setAuth", false);
+          console.log(res.data);
+          this.$router.push("/login");
+        })
+        .catch((err) => {
+          console.log("로그아웃 안됨");
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
