@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+
+//게시판
+Route::post("/store", [PostsController::class, 'store']);
+Route::get("index", [PostsController::class, 'index']);
+Route::get("/show/{id}", [PostsController::class, 'show']);
+
+//댓글
+Route::post("/comment/{id}", [CommentController::class, 'store']);
+Route::get("/comment/{id}", [CommentController::class, 'index']);
 
 
 Route::middleware('auth:sanctum')->group(function () {

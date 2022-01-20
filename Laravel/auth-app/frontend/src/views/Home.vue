@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div>{{ user.name }}</div>
-    <div>{{ user.email }}</div>
-    <div>{{ message }}</div>
-    <div>{{ this.$store.state.authenticated }}</div>
+    <Index />
+    <Create :user="user" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import Create from "../components/Create.vue";
+import Index from "../components/index.vue";
 
 export default {
   name: "Home",
@@ -17,6 +17,11 @@ export default {
       user: [],
       message: "",
     };
+  },
+
+  components: {
+    Create,
+    Index,
   },
 
   mounted() {
